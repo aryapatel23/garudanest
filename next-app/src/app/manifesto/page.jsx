@@ -21,21 +21,21 @@ export default function ManifestoPage() {
   return (
     <div className="pt-32 pb-20 bg-black">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-32">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-32">
           <div>
             <div className="relative group mb-16 md:mb-24 pt-16 md:pt-20">
               {/* Architectural 3D Layers (Shifted Up for 'Half Visible' look) */}
               <span
-                className="absolute -top-6 -right-2 md:-top-16 md:-right-4 font-sync font-black text-6xl md:text-8xl uppercase tracking-tighter select-none pointer-events-none leading-none whitespace-nowrap opacity-[0.02] text-white"
+                className="absolute -top-6 -right-2 md:-top-16 md:-right-4 font-sync font-black text-5xl md:text-8xl uppercase tracking-tighter select-none pointer-events-none leading-none whitespace-nowrap opacity-[0.02] text-white"
                 style={{ WebkitTextStroke: '1px rgba(255,255,255,0.1)', textStroke: '1px rgba(255,255,255,0.1)', color: 'transparent' }}
               >
                 THE CODE IS LAW
               </span>
-              <span className="absolute -top-3 -right-1 md:-top-8 md:-right-2 text-[#FF6B00] opacity-[0.06] font-sync font-black text-6xl md:text-8xl uppercase tracking-tighter select-none pointer-events-none leading-none whitespace-nowrap">
+              <span className="absolute -top-3 -right-1 md:-top-8 md:-right-2 text-[#FF6B00] opacity-[0.06] font-sync font-black text-5xl md:text-8xl uppercase tracking-tighter select-none pointer-events-none leading-none whitespace-nowrap">
                 THE CODE IS LAW
               </span>
 
-              <h2 className="relative z-10 text-6xl md:text-8xl font-sync font-black leading-none uppercase text-white">
+              <h2 className="relative z-10 text-5xl md:text-8xl font-sync font-black leading-none uppercase text-white">
                 THE <br /> <span className="text-[#FF6B00]">CODE</span> <br /> IS LAW
               </h2>
 

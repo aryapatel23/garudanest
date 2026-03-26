@@ -36,16 +36,16 @@ export default function NestPage() {
         <div className="relative group mb-14 md:mb-20 pt-12 md:pt-16">
           {/* Architectural 3D Layers (Shifted Up for 'Half Visible' look) */}
           <span
-            className="absolute -top-6 -right-2 md:-top-12 md:-right-4 font-sync font-bold text-5xl md:text-7xl uppercase tracking-tighter select-none pointer-events-none whitespace-nowrap opacity-[0.03] text-white"
+            className="absolute -top-6 -right-2 md:-top-12 md:-right-4 font-sync font-bold text-4xl md:text-7xl uppercase tracking-tighter select-none pointer-events-none whitespace-nowrap opacity-[0.03] text-white"
             style={{ WebkitTextStroke: '1px rgba(255,255,255,0.2)', textStroke: '1px rgba(255,255,255,0.2)', color: 'transparent' }}
           >
             Meet the Elite Circle
           </span>
-          <span className="absolute -top-3 -right-1 md:-top-6 md:-right-2 text-[#FF6B00] opacity-[0.06] font-sync font-bold text-5xl md:text-7xl uppercase tracking-tighter select-none pointer-events-none whitespace-nowrap">
+          <span className="absolute -top-3 -right-1 md:-top-6 md:-right-2 text-[#FF6B00] opacity-[0.06] font-sync font-bold text-4xl md:text-7xl uppercase tracking-tighter select-none pointer-events-none whitespace-nowrap">
             Meet the Elite Circle
           </span>
 
-          <h2 className="relative z-10 text-5xl md:text-7xl font-sync font-bold uppercase tracking-tighter text-white leading-none">
+          <h2 className="relative z-10 text-4xl md:text-7xl font-sync font-bold uppercase tracking-tighter text-white leading-none">
             Meet the <span className="text-[#FF6B00]">Elite Circle</span>
           </h2>
 

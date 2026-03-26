@@ -65,16 +65,16 @@ export default function JoinPage() {
         <div className="relative group mb-16 md:mb-24 pt-16 md:pt-20">
           {/* Architectural 3D Layers (Shifted Up for 'Half Visible' look) */}
           <span
-            className="absolute -top-6 -right-2 md:-top-16 md:-right-4 font-sync font-black text-5xl md:text-8xl uppercase tracking-tighter select-none pointer-events-none whitespace-nowrap opacity-[0.02] text-white"
+            className="absolute -top-6 -right-2 md:-top-16 md:-right-4 font-sync font-black text-4xl md:text-8xl uppercase tracking-tighter select-none pointer-events-none whitespace-nowrap opacity-[0.02] text-white"
             style={{ WebkitTextStroke: '1px rgba(255,255,255,0.1)', textStroke: '1px rgba(255,255,255,0.1)', color: 'transparent' }}
           >
             Ready to Soar?
           </span>
-          <span className="absolute -top-3 -right-1 md:-top-8 md:-right-2 text-[#FF6B00] opacity-[0.06] font-sync font-black text-5xl md:text-8xl uppercase tracking-tighter select-none pointer-events-none whitespace-nowrap">
+          <span className="absolute -top-3 -right-1 md:-top-8 md:-right-2 text-[#FF6B00] opacity-[0.06] font-sync font-black text-4xl md:text-8xl uppercase tracking-tighter select-none pointer-events-none whitespace-nowrap">
             Ready to Soar?
           </span>
 
-          <h2 className="relative z-10 text-5xl md:text-8xl font-sync font-black uppercase tracking-tighter text-white leading-none">
+          <h2 className="relative z-10 text-4xl md:text-8xl font-sync font-black uppercase tracking-tighter text-white leading-none">
             Ready to <span className="text-[#FF6B00]">Soar</span>?
           </h2>
 
@@ -92,7 +92,7 @@ export default function JoinPage() {
                 <input name="workEmail" required type="email" placeholder="Work Email" className="w-full bg-transparent border border-white/20 p-3 text-xs uppercase outline-none focus:border-[#FF6B00]" />
                 <textarea name="projectScope" required placeholder="Project Scope" rows={4} className="w-full bg-transparent border border-white/20 p-3 text-xs uppercase outline-none focus:border-[#FF6B00]" />
               </div>
-              <button disabled={hireStatus.type === 'loading'} className="mt-4 w-full bg-[#FF6B00] text-black py-4 font-black text-xs uppercase hover:bg-[#00E5FF] transition-colors disabled:opacity-60">
+              <button disabled={hireStatus.type === 'loading'} className="mt-4 w-full bg-[#FF6B00] text-black py-3.5 font-black text-xs uppercase hover:bg-[#00E5FF] transition-colors disabled:opacity-60">
                 {hireStatus.type === 'loading' ? 'Sending...' : 'Send Inquiry'}
               </button>
               {hireStatus.type !== 'idle' && (
@@ -115,7 +115,7 @@ export default function JoinPage() {
                 <input name="role" required type="text" placeholder="Role" className="w-full bg-transparent border border-white/20 p-3 text-xs uppercase outline-none focus:border-[#00E5FF]" />
                 <input name="portfolio" type="url" placeholder="Portfolio/GitHub" className="w-full bg-transparent border border-white/20 p-3 text-xs uppercase outline-none focus:border-[#00E5FF]" />
               </div>
-              <button disabled={joinStatus.type === 'loading'} className="mt-4 w-full bg-[#00E5FF] text-black py-4 font-black text-xs uppercase hover:bg-[#FF6B00] transition-colors disabled:opacity-60">
+              <button disabled={joinStatus.type === 'loading'} className="mt-4 w-full bg-[#00E5FF] text-black py-3.5 font-black text-xs uppercase hover:bg-[#FF6B00] transition-colors disabled:opacity-60">
                 {joinStatus.type === 'loading' ? 'Submitting...' : 'Submit Profile'}
               </button>
               {joinStatus.type !== 'idle' && (

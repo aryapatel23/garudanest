@@ -68,13 +68,13 @@ export const Header = () => {
         ].join(" ")}
       >
         <div className="max-w-7xl mx-auto w-full flex justify-between items-center">
-          <Link href="/" className="flex items-center gap-3 group">
+          <Link href="/" className="flex items-center gap-2 md:gap-3 group">
             <GarudaLogo 
               animated={true} 
               glow={true}
-              className="w-10 h-10 text-[#FF6B00] drop-shadow-[0_0_6px_rgba(255,107,0,0.3)] transition-all duration-300 group-hover:drop-shadow-[0_0_10px_rgba(255,107,0,0.5)]" 
+              className="w-8 h-8 md:w-10 md:h-10 text-[#FF6B00] drop-shadow-[0_0_6px_rgba(255,107,0,0.3)] transition-all duration-300 group-hover:drop-shadow-[0_0_10px_rgba(255,107,0,0.5)]" 
             />
-            <span className="font-sync font-bold text-sm md:text-base tracking-[0.12em] uppercase text-white group-hover:text-[#00E5FF] transition-all duration-300">
+            <span className="font-sync font-bold text-xs md:text-base tracking-[0.12em] uppercase text-white group-hover:text-[#00E5FF] transition-all duration-300">
               garudanest
             </span>
           </Link>
@@ -93,20 +93,20 @@ export const Header = () => {
               <Link href="/hire" className="border border-white/20 px-6 py-2.5 hover:border-[#FF6B00] hover:text-[#FF6B00] transition-all duration-300 bg-white/5 backdrop-blur-sm">
                 hire us
               </Link>
-              <Link href="/join" className="bg-[#FF6B00] text-black px-6 py-2.5 hover:bg-white transition-all duration-300 font-black shadow-[0_0_15px_rgba(255,107,0,0.3)]">
+              <Link href="/join" className="bg-white text-black px-6 py-2.5 hover:bg-[#FF6B00] transition-all duration-300 font-black shadow-[0_0_15px_rgba(255,107,0,0.3)]">
                 join the nest
               </Link>
             </div>
           </div>
-        </div>
 
-        <button
-          className="md:hidden text-white p-1"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
+          <button
+            className="md:hidden text-white p-2 -mr-2"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </nav>
 
       {/* Mobile Menu */}

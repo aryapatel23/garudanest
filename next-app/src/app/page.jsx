@@ -241,17 +241,17 @@ export default function App() {
 
 
       {/* HERO SECTION */}
-      <section className="relative min-h-screen flex flex-col justify-center px-6 md:px-10 pt-28 md:pt-20">
+      <section className="relative min-h-[90vh] md:min-h-screen flex flex-col justify-center px-6 md:px-10 pt-32 md:pt-20">
         <div className="max-w-7xl mx-auto w-full relative">
           <div className="flex items-center gap-3 mb-8 md:mb-10">
             <div className="h-[1px] w-12 md:w-16 bg-[#FF6B00]"></div>
             <span className="text-[9px] md:text-[10px] uppercase tracking-[0.4em] md:tracking-[0.5em] text-[#FF6B00] font-bold">Node 0x1 // Established 2026</span>
           </div>
 
-          <h1 className="font-sync text-[15vw] sm:text-[13vw] md:text-[11vw] font-black leading-[0.85] md:leading-[0.8] uppercase tracking-tighter mb-12 md:mb-16">
+          <h1 className="font-sync text-6xl sm:text-8xl md:text-[11vw] font-black leading-[0.9] md:leading-[0.8] uppercase tracking-tighter mb-12 md:mb-16">
             <span className="block italic opacity-20 hover:opacity-100 transition-opacity">BUILDING</span>
-            <span className="block ml-[2vw] md:ml-[4vw] glitch-text text-[#FF6B00]" data-text="SYST3MS">SYST3MS</span>
-            <span className="block text-right mr-[2vw] md:mr-[4vw] text-[#00E5FF]">THAT SOAR</span>
+            <span className="block ml-[4vw] glitch-text text-[#FF6B00]" data-text="SYST3MS">SYST3MS</span>
+            <span className="block text-right mr-[4vw] text-[#00E5FF]">THAT SOAR</span>
           </h1>
 
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10 md:gap-12">
@@ -292,10 +292,10 @@ export default function App() {
       {/* HOW WE BUILD */}
       <section id="process" className="py-20 md:py-36 px-6 bg-[#070707] border-y border-white/5">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-5xl md:text-7xl font-sync font-bold uppercase tracking-tighter mb-16">
+          <h2 className="text-4xl md:text-7xl font-sync font-bold uppercase tracking-tighter mb-12 md:mb-16">
             How Elite Systems <span className="text-[#FF6B00]">Are Built</span>
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
             {[
               { t: 'Discovery & Architecture', i: <Command size={20} />, b: 'Clear technical direction.' },
               { t: 'Design & Prototyping', i: <Sparkles size={20} />, b: 'Validate ideas early.' },
@@ -319,10 +319,10 @@ export default function App() {
       {/* BENEFITS */}
       <section className="py-20 md:py-36 px-6">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-5xl md:text-7xl font-sync font-bold uppercase tracking-tighter mb-16">
+          <h2 className="text-4xl md:text-7xl font-sync font-bold uppercase tracking-tighter mb-12 md:mb-16">
             What You Gain in the <span className="text-[#00E5FF]">Nest</span>
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
               'High-Impact Projects',
               'Competitive Compensation + Bonuses',
@@ -407,10 +407,10 @@ export default function App() {
       {/* PROJECTS */}
       <section className="py-20 md:py-36 px-6" id="work">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-5xl md:text-7xl font-sync font-bold uppercase tracking-tighter mb-16">
+          <h2 className="text-4xl md:text-7xl font-sync font-bold uppercase tracking-tighter mb-12 md:mb-16">
             Projects That <span className="text-[#00E5FF]">Soared</span>
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {projects.map((project, index) => (
               <div key={project.title} className="bg-[#0a0a0a] border border-white/5 flex flex-col h-full overflow-hidden group hover:border-white/20 transition-all">
                 {/* Card Header & Content */}
@@ -425,7 +425,7 @@ export default function App() {
                   </div>
 
                   {/* Project Title */}
-                  <h3 className="text-3xl md:text-4xl font-sync font-bold uppercase mb-6 tracking-tighter leading-none text-white whitespace-nowrap overflow-hidden text-ellipsis">
+                  <h3 className="text-2xl md:text-4xl font-sync font-bold uppercase mb-6 tracking-tighter leading-tight text-white">
                     {project.title}
                   </h3>
 
@@ -509,7 +509,7 @@ export default function App() {
                 <input name="workEmail" required type="email" placeholder="Work Email" className="w-full bg-transparent border border-white/20 p-3 text-xs uppercase outline-none focus:border-[#FF6B00]" />
                 <textarea name="projectScope" required placeholder="Project Scope" rows={4} className="w-full bg-transparent border border-white/20 p-3 text-xs uppercase outline-none focus:border-[#FF6B00]" />
               </div>
-              <button disabled={hireStatus.type === 'loading'} className="mt-4 w-full bg-[#FF6B00] text-black py-4 font-black text-xs uppercase hover:bg-[#00E5FF] transition-colors disabled:opacity-60 disabled:cursor-not-allowed">
+              <button disabled={hireStatus.type === 'loading'} className="mt-4 w-full bg-[#FF6B00] text-black py-3.5 font-black text-xs uppercase hover:bg-[#00E5FF] transition-colors disabled:opacity-60 disabled:cursor-not-allowed">
                 {hireStatus.type === 'loading' ? 'Sending...' : 'Send Inquiry'}
               </button>
               {hireStatus.type !== 'idle' && (
@@ -530,7 +530,7 @@ export default function App() {
                 <input name="role" required type="text" placeholder="Role (Frontend / Backend / AI / DevOps)" className="w-full bg-transparent border border-white/20 p-3 text-xs uppercase outline-none focus:border-[#00E5FF]" />
                 <input name="portfolio" type="url" placeholder="Portfolio/GitHub" className="w-full bg-transparent border border-white/20 p-3 text-xs uppercase outline-none focus:border-[#00E5FF]" />
               </div>
-              <button disabled={joinStatus.type === 'loading'} className="mt-4 w-full bg-[#00E5FF] text-black py-4 font-black text-xs uppercase hover:bg-[#FF6B00] transition-colors disabled:opacity-60 disabled:cursor-not-allowed">
+              <button disabled={joinStatus.type === 'loading'} className="mt-4 w-full bg-[#00E5FF] text-black py-3.5 font-black text-xs uppercase hover:bg-[#FF6B00] transition-colors disabled:opacity-60 disabled:cursor-not-allowed">
                 {joinStatus.type === 'loading' ? 'Submitting...' : 'Submit Profile'}
               </button>
               {joinStatus.type !== 'idle' && (

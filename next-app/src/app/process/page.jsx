@@ -10,16 +10,16 @@ export default function ProcessPage() {
         {/* Header Section */}
         <div className="relative group mb-20 md:mb-24 pt-12 md:pt-16">
           <span
-            className="absolute -top-6 -right-2 md:-top-12 md:-right-4 font-sync font-bold text-5xl md:text-7xl uppercase tracking-tighter select-none pointer-events-none whitespace-nowrap opacity-[0.03] text-white"
+            className="absolute -top-6 -right-2 md:-top-12 md:-right-4 font-sync font-bold text-4xl md:text-7xl uppercase tracking-tighter select-none pointer-events-none whitespace-nowrap opacity-[0.03] text-white"
             style={{ WebkitTextStroke: '1px rgba(255,255,255,0.2)', textStroke: '1px rgba(255,255,255,0.2)', color: 'transparent' }}
           >
             How Elite Systems Are Built
           </span>
-          <span className="absolute -top-3 -right-1 md:-top-6 md:-right-2 text-[#FF6B00] opacity-[0.06] font-sync font-bold text-5xl md:text-7xl uppercase tracking-tighter select-none pointer-events-none whitespace-nowrap">
+          <span className="absolute -top-3 -right-1 md:-top-6 md:-right-2 text-[#FF6B00] opacity-[0.06] font-sync font-bold text-4xl md:text-7xl uppercase tracking-tighter select-none pointer-events-none whitespace-nowrap">
             How Elite Systems Are Built
           </span>
 
-          <h2 className="relative z-10 text-5xl md:text-7xl font-sync font-bold uppercase tracking-tighter text-white leading-none">
+          <h2 className="relative z-10 text-4xl md:text-7xl font-sync font-bold uppercase tracking-tighter text-white leading-none">
             How Elite Systems <span className="text-[#FF6B00]">Are Built</span>
           </h2>
 
@@ -165,7 +165,7 @@ function ProcessShowcase() {
           <div
             key={item.step}
             onMouseEnter={() => setActiveStep(idx)}
-            className={`group relative flex items-center gap-6 p-6 md:p-8 bg-[#0a0a0a] border border-white/5 cursor-crosshair transition-all duration-500 flex-grow ${idx !== 6 ? 'mb-4' : ''} ${activeStep === idx ? 'border-[#FF6B00]/40 bg-[#0d0d0d]' : 'hover:border-white/10 opacity-40 hover:opacity-100'}`}
+            className={`group relative flex items-center gap-6 p-5 md:p-8 bg-[#0a0a0a] border border-white/5 cursor-crosshair transition-all duration-500 flex-grow ${idx !== 6 ? 'mb-4' : ''} ${activeStep === idx ? 'border-[#FF6B00]/40 bg-[#0d0d0d]' : 'hover:border-white/10 opacity-40 hover:opacity-100'}`}
           >
             {/* Progress Bar (Timer) for Active Item */}
             <div className={`absolute top-0 left-0 h-[2px] bg-[#FF6B00] transition-all duration-[7000ms] ease-linear ${activeStep === idx && !isPaused ? 'w-full' : 'w-0'}`} />
@@ -174,7 +174,7 @@ function ProcessShowcase() {
               {item.step}
             </span>
             <div className="flex flex-col">
-              <h3 className={`text-lg md:text-2xl font-sync font-bold uppercase tracking-tighter transition-all ${activeStep === idx ? 'text-white' : 'text-white/40'}`}>
+              <h3 className={`text-base md:text-2xl font-sync font-bold uppercase tracking-tighter transition-all ${activeStep === idx ? 'text-white' : 'text-white/40'}`}>
                 {item.title}
               </h3>
               {activeStep === idx && (
@@ -198,7 +198,7 @@ function ProcessShowcase() {
 
       {/* Right side: Information Panel - Matching Height */}
       <div className="w-full lg:w-[55%] flex">
-        <div className="bg-[#0a0a0a] border border-white/5 p-8 md:p-16 relative overflow-hidden group w-full flex flex-col justify-between">
+        <div className="bg-[#0a0a0a] border border-white/5 p-6 md:p-16 relative overflow-hidden group w-full flex flex-col justify-between">
           {/* Animated Background Accent */}
           <div
             className="absolute top-0 right-0 w-64 h-64 opacity-15 transition-colors duration-700 blur-[120px] rounded-full -mr-24 -mt-24"
@@ -215,7 +215,7 @@ function ProcessShowcase() {
             </div>
 
             <div>
-              <h2 className="text-4xl md:text-6xl font-sync font-bold uppercase mb-6 tracking-tighter leading-none text-white transition-all duration-300">
+              <h2 className="text-3xl md:text-6xl font-sync font-bold uppercase mb-6 tracking-tighter leading-none text-white transition-all duration-300">
                 {stepsData[activeStep].title}
               </h2>
               <div className="flex flex-wrap gap-4">

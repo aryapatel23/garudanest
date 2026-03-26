@@ -16,17 +16,17 @@ export default function WorkPage() {
           >
             Projects That Soared
           </span> */}
-          <span className="absolute -top-3 -right-1 md:-top-6 md:-right-2 text-[#FF6B00] opacity-[0.06] font-sync font-bold text-5xl md:text-7xl uppercase tracking-tighter select-none pointer-events-none whitespace-nowrap">
+          <span className="absolute -top-3 -right-1 md:-top-6 md:-right-2 text-[#FF6B00] opacity-[0.06] font-sync font-bold text-4xl md:text-7xl uppercase tracking-tighter select-none pointer-events-none whitespace-nowrap">
             Projects That Soared
           </span>
 
-          <h2 className="relative z-10 text-5xl md:text-7xl font-sync font-bold uppercase tracking-tighter text-white leading-none">
+          <h2 className="relative z-10 text-4xl md:text-7xl font-sync font-bold uppercase tracking-tighter text-white leading-none">
             Projects That <span className="text-[#FF6B00]">Soared</span>
           </h2>
 
           <div className="h-[2px] w-16 bg-[#FF6B00] mt-6 md:mt-8 opacity-40"></div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-4 md:px-0">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 px-4 md:px-0">
           {projects.map((project, index) => (
             <div key={project.title} className="bg-[#0a0a0a] border border-white/5 flex flex-col h-full overflow-hidden group hover:border-white/20 transition-all">
               {/* Card Header & Content */}
@@ -41,7 +41,7 @@ export default function WorkPage() {
                 </div>
 
                 {/* Project Title */}
-                <h3 className="text-3xl md:text-4xl font-sync font-bold uppercase mb-6 tracking-tighter leading-none text-white whitespace-nowrap overflow-hidden text-ellipsis">
+                <h3 className="text-2xl md:text-4xl font-sync font-bold uppercase mb-6 tracking-tighter leading-tight text-white">
                   {project.title}
                 </h3>
 
