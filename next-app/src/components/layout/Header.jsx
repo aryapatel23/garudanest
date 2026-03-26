@@ -7,20 +7,44 @@ import { Menu, X } from 'lucide-react';
 import { GarudaLogo } from '@/components/ui/GarudaLogo';
 
 const navLinks = [
-  { label: "home", href: "/" },
+  { label: "about", href: "/about" },
   { label: "work", href: "/work" },
   { label: "process", href: "/process" },
   { label: "nest", href: "/nest" },
-  { label: "join", href: "/join" },
-  { label: "manifesto", href: "/manifesto" },
+  { label: "studio", href: "/studio" },
 ];
 
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [ctaLabel, setCtaLabel] = useState("manifesto");
+  const [isHovered, setIsHovered] = useState(false);
+  
   const lastScrollY = useRef(0);
   const pathname = usePathname();
+
+  // Mobile Ticker for Manifesto button
+  useEffect(() => {
+    if (isHovered) return; // Don't tick if mouse is hovering on desktop
+    
+    const interval = setInterval(() => {
+      setCtaLabel(prev => prev === "manifesto" ? "reach us" : "manifesto");
+    }, 3000);
+    
+    return () => clearInterval(interval);
+  }, [isHovered]);
+
+  // Handle desktop hover specifically
+  const handleCtaHover = (hovering) => {
+    setIsHovered(hovering);
+    if (hovering) {
+      setCtaLabel("reach us");
+    } else {
+      // Small delay on exit feels smoother
+      setTimeout(() => setCtaLabel("manifesto"), 100);
+    }
+  };
 
   // Reset nav state on every page navigation
   useEffect(() => {
@@ -35,17 +59,13 @@ export const Header = () => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
-      // Show/hide based on scroll direction
       if (currentScrollY < lastScrollY.current || currentScrollY < 80) {
-        // Scrolling UP or near top → show
         setIsVisible(true);
       } else if (currentScrollY > lastScrollY.current && currentScrollY > 80) {
-        // Scrolling DOWN past threshold → hide
         setIsVisible(false);
-        setMobileMenuOpen(false); // Close mobile menu on hide
+        setMobileMenuOpen(false);
       }
 
-      // Backdrop blur once scrolled past 20px
       setIsScrolled(currentScrollY > 80);
       lastScrollY.current = currentScrollY;
     };
@@ -59,7 +79,7 @@ export const Header = () => {
       <nav
         className={[
           "fixed top-0 left-0 right-0 z-[80]",
-          "px-6 md:px-10 py-5 md:py-6", // Consistent slim padding
+          "px-6 md:px-10 py-5 md:py-6",
           "transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]",
           isVisible ? "translate-y-0" : "-translate-y-full",
           isScrolled
@@ -90,11 +110,21 @@ export const Header = () => {
               </Link>
             ))}
             <div className="flex items-center gap-4 ml-4">
-              <Link href="/hire" className="border border-white/20 px-6 py-2.5 hover:border-[#FF6B00] hover:text-[#FF6B00] transition-all duration-300 bg-white/5 backdrop-blur-sm">
+              <Link href="/hire" className="border border-white/20 px-6 py-2.5 hover:border-[#00E5FF] hover:text-[#00E5FF] transition-all duration-300 bg-white/5 backdrop-blur-sm">
                 hire us
               </Link>
-              <Link href="/join" className="bg-white text-black px-6 py-2.5 hover:bg-[#FF6B00] transition-all duration-300 font-black shadow-[0_0_15px_rgba(255,107,0,0.3)]">
-                join the nest
+              <Link 
+                href="/manifesto" 
+                onMouseEnter={() => handleCtaHover(true)}
+                onMouseLeave={() => handleCtaHover(false)}
+                className="bg-white text-black px-8 py-2.5 hover:bg-[#FF6B00] transition-all duration-500 font-black shadow-[0_0_20px_rgba(255,107,0,0.1)] min-w-[160px] text-center relative overflow-hidden group"
+              >
+                <span className={`block transition-all duration-300 ${isHovered ? 'translate-y-10 opacity-0' : 'translate-y-0 opacity-100'}`}>
+                   {ctaLabel === "manifesto" ? "manifesto" : "manifesto"}
+                </span>
+                <span className={`absolute inset-0 flex items-center justify-center transition-all duration-300 ${isHovered ? 'translate-y-0 opacity-100' : '-translate-y-10 opacity-0'}`}>
+                   reach us
+                </span>
               </Link>
             </div>
           </div>
@@ -136,16 +166,19 @@ export const Header = () => {
             <Link
               href="/hire"
               onClick={() => setMobileMenuOpen(false)}
-              className="border border-[#FF6B00]/50 text-[#FF6B00] px-4 py-4 text-center rounded-lg hover:bg-[#FF6B00]/10 transition-all"
+              className="border border-[#00E5FF]/30 text-[#00E5FF] px-4 py-4 text-center rounded-lg hover:bg-[#00E5FF]/10 transition-all font-bold"
             >
               hire us
             </Link>
             <Link
-              href="/join"
+              href="/manifesto"
               onClick={() => setMobileMenuOpen(false)}
-              className="bg-[#FF6B00] text-black px-4 py-4 text-center rounded-lg font-black hover:bg-white transition-all"
+              className="bg-[#FF6B00] text-black px-4 py-4 text-center rounded-lg font-black hover:bg-white transition-all flex flex-col items-center justify-center h-16 relative overflow-hidden"
             >
-              join the nest
+              <div className="relative h-full w-full flex flex-col items-center justify-center">
+                 <span className={`absolute transition-all duration-700 ${ctaLabel === "manifesto" ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"}`}>manifesto</span>
+                 <span className={`absolute transition-all duration-700 ${ctaLabel === "reach us" ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>reach us</span>
+              </div>
             </Link>
           </div>
         </div>

@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
   ArrowRight,
-  ChevronRight, Zap, Hash, Command, Terminal, Sparkles, Send, Cpu, Globe, Menu, X, ShieldCheck, Users, Rocket, Briefcase, User
+  ChevronRight, Zap, Hash, Command, Terminal, Sparkles, Send, Cpu, Globe, Menu, X, ShieldCheck, Users, Rocket, Briefcase, User, Camera
 } from 'lucide-react';
 
 const Twitter = ({ size = 24, className = "" }) => (
@@ -30,11 +30,11 @@ const BRAND = {
 };
 
 const navLinks = [
-  { label: "home", href: "/" },
+  { label: "about", href: "/about" },
   { label: "work", href: "/work" },
   { label: "process", href: "/process" },
   { label: "nest", href: "/nest" },
-  { label: "join", href: "/join" },
+  { label: "studio", href: "/studio" },
   { label: "manifesto", href: "/manifesto" },
 ];
 
@@ -525,34 +525,26 @@ export default function App() {
               )}
             </form>
 
-            <form onSubmit={handleJoinSubmit} className="bento-card p-8 group">
-              <div className="flex items-center justify-between mb-8">
-                <div className="flex items-center gap-3">
-                  <User size={20} className="text-[#FF6B00]" />
-                  <span className="text-[10px] font-bold uppercase tracking-[0.3em]">Join the Nest // Developers</span>
+            <div className="bento-card p-8 group flex flex-col justify-between border-[#FF6B00]/20">
+              <div>
+                <div className="flex items-center justify-between mb-8">
+                  <div className="flex items-center gap-3">
+                    <Camera size={20} className="text-[#FF6B00]" />
+                    <span className="text-[10px] font-bold uppercase tracking-[0.3em]">Studio Archives // Internal Node</span>
+                  </div>
                 </div>
-                <a href="/join" className="text-[9px] font-bold uppercase tracking-widest text-white/20 group-hover:text-[#00E5FF] transition-colors flex items-center gap-1.5">
-                  Requirements <ArrowRight size={10} />
-                </a>
-              </div>
 
-              <h3 className="text-xl font-sync font-bold uppercase mb-6 leading-tight">Elite <br/> Recruitment</h3>
-
-              <div className="space-y-4">
-                <input name="fullName" required type="text" placeholder="FULL_NAME" className="w-full bg-transparent border-b border-white/10 p-3 text-xs uppercase outline-none focus:border-[#00E5FF] transition-colors" />
-                <input name="email" required type="email" placeholder="SECURE_EMAIL" className="w-full bg-transparent border-b border-white/10 p-3 text-xs uppercase outline-none focus:border-[#00E5FF] transition-colors" />
-                <input name="role" required type="text" placeholder="STACK_DOMAIN" className="w-full bg-transparent border-b border-white/10 p-3 text-xs uppercase outline-none focus:border-[#00E5FF] transition-colors" />
-                <input name="portfolio" type="url" placeholder="GITHUB_REPO" className="w-full bg-transparent border-b border-white/10 p-3 text-xs uppercase outline-none focus:border-[#00E5FF] transition-colors" />
-              </div>
-              <button disabled={joinStatus.type === 'loading'} className="mt-8 w-full bg-[#00E5FF] text-black py-4 font-black text-xs uppercase hover:bg-[#FF6B00] transition-all shadow-[0_0_20px_rgba(0,229,255,0.2)] disabled:opacity-60">
-                {joinStatus.type === 'loading' ? 'Submitting...' : 'Submit Credentials'}
-              </button>
-              {joinStatus.type !== 'idle' && (
-                <p className={`mt-4 text-[10px] uppercase font-bold text-center tracking-widest ${joinStatus.type === 'success' ? 'text-[#22C55E]' : joinStatus.type === 'error' ? 'text-red-400' : 'text-[#00E5FF]'}`}>
-                  {joinStatus.message}
+                <h3 className="text-3xl font-sync font-bold uppercase mb-6 leading-tight">Inside <br/> The Nest</h3>
+                
+                <p className="text-[11px] text-slate-400 uppercase leading-loose mb-8 max-w-xs">
+                  A visual documentation of our engineering philosophy, studio culture, and the humans behind the systems.
                 </p>
-              )}
-            </form>
+              </div>
+
+              <a href="/join" className="w-full bg-white/5 border border-white/10 text-white py-5 font-black text-xs uppercase hover:bg-[#FF6B00] hover:text-black transition-all text-center">
+                Explore The Studio
+              </a>
+            </div>
           </div>
         </div>
       </section>
