@@ -18,13 +18,18 @@ export const metadata: Metadata = {
   },
 };
 
+import { Preloader } from "@/components/ui/Preloader";
+import { AmbientUI } from "@/components/ui/AmbientUI";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth overflow-x-hidden">
       <head>
         <script
           type="application/ld+json"
@@ -49,10 +54,15 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.variable} ${spaceGrotesk.variable} font-sans antialiased text-white bg-[#0A1F3D]`}>
-        {children}
+      <body className={`${inter.variable} ${spaceGrotesk.variable} font-sans antialiased text-white bg-[#050505] overflow-x-hidden`}>
+        <Preloader />
+        <AmbientUI />
+        <Header />
+        <main>
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );
 }
-
