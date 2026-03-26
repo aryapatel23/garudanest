@@ -10,12 +10,12 @@ export default function WorkPage() {
       <div className="max-w-7xl mx-auto">
         <div className="relative group mb-20 md:mb-24 px-4 md:px-0 pt-12 md:pt-16">
           {/* Architectural 3D Layers (Shifted Up for 'Half Visible' look) */}
-          <span
+          {/* <span
             className="absolute -top-6 -right-2 md:-top-12 md:-right-4 font-sync font-bold text-5xl md:text-7xl uppercase tracking-tighter select-none pointer-events-none whitespace-nowrap opacity-[0.03] text-white"
             style={{ WebkitTextStroke: '1px rgba(255,255,255,0.2)', textStroke: '1px rgba(255,255,255,0.2)', color: 'transparent' }}
           >
             Projects That Soared
-          </span>
+          </span> */}
           <span className="absolute -top-3 -right-1 md:-top-6 md:-right-2 text-[#FF6B00] opacity-[0.06] font-sync font-bold text-5xl md:text-7xl uppercase tracking-tighter select-none pointer-events-none whitespace-nowrap">
             Projects That Soared
           </span>

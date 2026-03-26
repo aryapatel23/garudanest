@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import { GarudaLogo } from '@/components/ui/GarudaLogo';
 
@@ -19,6 +20,16 @@ export const Header = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
   const lastScrollY = useRef(0);
+  const pathname = usePathname();
+
+  // Reset nav state on every page navigation
+  useEffect(() => {
+    const scrollY = window.scrollY;
+    lastScrollY.current = scrollY;
+    setIsScrolled(scrollY > 80);
+    setIsVisible(true);
+    setMobileMenuOpen(false);
+  }, [pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,42 +59,45 @@ export const Header = () => {
       <nav
         className={[
           "fixed top-0 left-0 right-0 z-[80]",
-          "px-6 md:px-10 py-5 md:py-7",
-          "flex justify-between items-center",
-          // Smooth slide transition
+          "px-6 md:px-10 py-5 md:py-6", // Consistent slim padding
           "transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]",
           isVisible ? "translate-y-0" : "-translate-y-full",
-          // Glassmorphism backdrop when scrolled
           isScrolled
-            ? "bg-[#050505]/40 backdrop-blur-2xl shadow-[0_4px_24px_rgba(0,0,0,0.25)]"
-            : "bg-transparent",
-          // Mix blend for hero overlap
-          !isScrolled && "mix-blend-difference",
-        ].filter(Boolean).join(" ")}
+            ? "bg-[#050505]/70 backdrop-blur-2xl shadow-[0_2px_20px_rgba(0,0,0,0.3)]"
+            : "bg-gradient-to-b from-black/60 via-black/20 to-transparent",
+        ].join(" ")}
       >
-        <Link href="/" className="flex items-center gap-3 group">
-          <GarudaLogo className="w-8 h-8 text-[#FF6B00]" />
-          <span className="font-sync font-bold text-sm tracking-tighter uppercase group-hover:text-[#00E5FF] transition-colors">
-            garudanest
-          </span>
-        </Link>
+        <div className="max-w-7xl mx-auto w-full flex justify-between items-center">
+          <Link href="/" className="flex items-center gap-3 group">
+            <GarudaLogo 
+              animated={true} 
+              glow={true}
+              className="w-10 h-10 text-[#FF6B00] drop-shadow-[0_0_6px_rgba(255,107,0,0.3)] transition-all duration-300 group-hover:drop-shadow-[0_0_10px_rgba(255,107,0,0.5)]" 
+            />
+            <span className="font-sync font-bold text-sm md:text-base tracking-[0.12em] uppercase text-white group-hover:text-[#00E5FF] transition-all duration-300">
+              garudanest
+            </span>
+          </Link>
 
-        <div className="hidden md:flex items-center gap-8 text-[10px] font-bold uppercase tracking-widest">
-          {navLinks.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              className="relative hover:text-[#00E5FF] transition-colors after:absolute after:-bottom-1 after:left-0 after:h-[1px] after:w-0 after:bg-[#00E5FF] hover:after:w-full after:transition-all after:duration-300"
-            >
-              {link.label}
-            </Link>
-          ))}
-          <Link href="/hire" className="border border-white/30 px-5 py-2 hover:border-[#FF6B00] hover:text-[#FF6B00] transition-all duration-300">
-            hire us
-          </Link>
-          <Link href="/join" className="bg-white text-black px-5 py-2 hover:bg-[#FF6B00] hover:text-white transition-all duration-300">
-            join the nest
-          </Link>
+          <div className="hidden md:flex items-center gap-10 text-[11px] font-bold uppercase tracking-[0.2em]">
+            {navLinks.map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                className="relative text-white/80 hover:text-[#00E5FF] transition-colors after:absolute after:-bottom-1 after:left-0 after:h-[1px] after:w-0 after:bg-[#00E5FF] hover:after:w-full after:transition-all after:duration-300"
+              >
+                {link.label}
+              </Link>
+            ))}
+            <div className="flex items-center gap-4 ml-4">
+              <Link href="/hire" className="border border-white/20 px-6 py-2.5 hover:border-[#FF6B00] hover:text-[#FF6B00] transition-all duration-300 bg-white/5 backdrop-blur-sm">
+                hire us
+              </Link>
+              <Link href="/join" className="bg-[#FF6B00] text-black px-6 py-2.5 hover:bg-white transition-all duration-300 font-black shadow-[0_0_15px_rgba(255,107,0,0.3)]">
+                join the nest
+              </Link>
+            </div>
+          </div>
         </div>
 
         <button

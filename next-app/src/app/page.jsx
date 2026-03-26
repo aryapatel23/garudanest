@@ -239,54 +239,6 @@ export default function App() {
   return (
     <div id="home" className="bg-[#050505] text-[#f0f0f0] font-mono selection:bg-[#FF6B00] selection:text-black cursor-none overflow-x-hidden">
 
-      <style dangerouslySetInnerHTML={{
-        __html: `
-        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Space+Grotesk:wght@300;700&display=swap');
-        
-        body { font-family: 'Space Grotesk', sans-serif; scroll-behavior: smooth; }
-        .font-sync { font-family: 'Syncopate', sans-serif; }
-        
-        /* The Logo Draw Effect */
-        .logo-draw-animation {
-          stroke-dasharray: 400;
-          stroke-dashoffset: 400;
-          animation: drawStroke 2.5s cubic-bezier(0.9, 0, 0.1, 1) forwards;
-        }
-        @keyframes drawStroke { to { stroke-dashoffset: 0; } }
-
-        /* Glitch Effect */
-        .glitch-text {
-          position: relative;
-        }
-        .glitch-text::after {
-          content: attr(data-text);
-          position: absolute;
-          left: 2px;
-          text-shadow: -2px 0 #00E5FF;
-          top: 0;
-          overflow: hidden;
-          clip: rect(0, 900px, 0, 0);
-          animation: glitch-anim 2s infinite linear alternate-reverse;
-        }
-        @keyframes glitch-anim {
-          0% { clip: rect(10px, 9999px, 50px, 0); }
-          50% { clip: rect(80px, 9999px, 90px, 0); }
-          100% { clip: rect(40px, 9999px, 60px, 0); }
-        }
-
-        .bento-card {
-          background: #0a0a0a;
-          border: 1px solid rgba(255,255,255,0.05);
-          transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
-        }
-        .bento-card:hover {
-          border-color: #FF6B00;
-          background: #0f0f0f;
-          transform: translateY(-5px);
-          box-shadow: 0 10px 40px -20px rgba(255,107,0,0.3);
-        }
-      `}} />
-
 
       {/* HERO SECTION */}
       <section className="relative min-h-screen flex flex-col justify-center px-6 md:px-10 pt-28 md:pt-20">

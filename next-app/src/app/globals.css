@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Space+Grotesk:wght@300;700&display=swap');
 @import "tailwindcss";
 
 :root {
@@ -22,8 +23,57 @@
   --color-accent-cyan: var(--accent-cyan);
   --color-success: var(--success);
 
-  --font-sans: var(--font-inter), sans-serif;
-  --font-accent: var(--font-space), sans-serif;
+  --font-sans: "Space Grotesk", var(--font-inter), sans-serif;
+  --font-accent: "Space Grotesk", var(--font-space), sans-serif;
+  --font-sync: "Syncopate", sans-serif;
+}
+
+@utility font-sync {
+  font-family: "Syncopate", sans-serif;
+}
+
+@utility logo-draw-animation {
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  animation: drawStroke 2.5s cubic-bezier(0.9, 0, 0.1, 1) forwards;
+}
+
+@keyframes drawStroke {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@utility glitch-text {
+  position: relative;
+  &::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 2px;
+    text-shadow: -2px 0 #00E5FF;
+    top: 0;
+    overflow: hidden;
+    clip: rect(0, 900px, 0, 0);
+    animation: glitch-anim 2s infinite linear alternate-reverse;
+  }
+}
+
+@keyframes glitch-anim {
+  0% { clip: rect(10px, 9999px, 50px, 0); }
+  50% { clip: rect(80px, 9999px, 90px, 0); }
+  100% { clip: rect(40px, 9999px, 60px, 0); }
+}
+
+@utility bento-card {
+  background: #0a0a0a;
+  border: 1px solid rgba(255,255,255,0.05);
+  transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+  &:hover {
+    border-color: #FF6B00;
+    background: #0f0f0f;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 40px -20px rgba(255,107,0,0.3);
+  }
 }
 
 body {

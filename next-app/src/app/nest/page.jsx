@@ -67,54 +67,54 @@ export default function NestPage() {
         <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 transition-opacity duration-1000 ${isReady ? 'opacity-100' : 'opacity-0'}`}>
           {visibleTeam.map((member, index) => (
             <div key={member.name} className="group relative aspect-[4/5] overflow-hidden bg-[#0a0a0a] border border-white/5 hover:border-[#00E5FF]/30 transition-all duration-500">
-                {/* Profile Image */}
-                <img 
-                  src={member.image} 
-                  alt={member.name}
-                  className="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
-                />
-                
-                {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
+              {/* Profile Image */}
+              <img
+                src={member.image}
+                alt={member.name}
+                className="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
+              />
 
-                {/* Status Badge */}
-                <div className="absolute top-4 right-4 z-20">
-                  <span className="text-[8px] font-mono px-2 py-1 bg-black/60 backdrop-blur-md border border-white/10 text-white/40 uppercase tracking-[0.2em]">
-                    Node_0x{index + 1} // Active
-                  </span>
-                </div>
+              {/* Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
 
-                {/* Info Content */}
-                <div className="absolute inset-x-0 bottom-0 p-6 z-20 flex flex-col justify-end translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                  <div className="h-[2px] w-12 bg-[#FF6B00] mb-4 group-hover:w-full transition-all duration-700" />
-                  
-                  <h3 className="text-2xl font-sync font-bold uppercase text-white mb-1 tracking-tighter">
-                    {member.name}
-                  </h3>
-                  
-                  <p className="text-[10px] font-bold text-[#FF6B00] uppercase tracking-[0.2em] mb-4">
-                    {member.role}
+              {/* Status Badge */}
+              <div className="absolute top-4 right-4 z-20">
+                <span className="text-[8px] font-mono px-2 py-1 bg-black/60 backdrop-blur-md border border-white/10 text-white/40 uppercase tracking-[0.2em]">
+                  Node_0x{index + 1} // Active
+                </span>
+              </div>
+
+              {/* Info Content */}
+              <div className="absolute inset-x-0 bottom-0 p-6 z-20 flex flex-col justify-end translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                <div className="h-[2px] w-12 bg-[#FF6B00] mb-4 group-hover:w-full transition-all duration-700" />
+
+                <h3 className="text-2xl font-sync font-bold uppercase text-white mb-1 tracking-tighter">
+                  {member.name}
+                </h3>
+
+                <p className="text-[10px] font-bold text-[#FF6B00] uppercase tracking-[0.2em] mb-4">
+                  {member.role}
+                </p>
+
+                <div className="max-h-0 group-hover:max-h-32 overflow-hidden transition-all duration-700 opacity-0 group-hover:opacity-100">
+                  <p className="text-[10px] text-slate-300 uppercase leading-relaxed mb-4 tracking-wide font-medium">
+                    {member.bio}
                   </p>
 
-                  <div className="max-h-0 group-hover:max-h-32 overflow-hidden transition-all duration-700 opacity-0 group-hover:opacity-100">
-                    <p className="text-[10px] text-slate-300 uppercase leading-relaxed mb-4 tracking-wide font-medium">
-                      {member.bio}
-                    </p>
-                    
-                    <div className="flex flex-wrap gap-2">
-                      {member.tags.map((tag) => (
-                        <span key={tag} className="text-[8px] font-mono border border-white/10 px-2 py-1 text-white/50 uppercase">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
+                  <div className="flex flex-wrap gap-2">
+                    {member.tags.map((tag) => (
+                      <span key={tag} className="text-[8px] font-mono border border-white/10 px-2 py-1 text-white/50 uppercase">
+                        {tag}
+                      </span>
+                    ))}
                   </div>
                 </div>
-
-                {/* Glass Reflection Effect */}
-                <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-1000 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-[1500ms]" />
               </div>
-            ))}
+
+              {/* Glass Reflection Effect */}
+              <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-1000 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-[1500ms]" />
+            </div>
+          ))}
         </div>
       </div>
     </div>
