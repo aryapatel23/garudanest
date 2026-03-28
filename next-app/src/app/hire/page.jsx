@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Briefcase, Zap, ShieldCheck, Cpu, ArrowRight } from 'lucide-react';
 import { BentoCard } from '@/components/ui/BentoCard';
+import { sendEmailAction } from '../../lib/actions';
 import { SERVICES, BUDGET_RANGES } from '@/lib/constants';
 
 export default function HirePage() {
@@ -14,26 +15,18 @@ export default function HirePage() {
     event.preventDefault();
     const form = event.currentTarget;
     setStatus({ type: 'loading', message: 'Syncing with Hive_Mind...' });
-    
+
     const formData = new FormData(form);
-    const payload = {
-      companyName: String(formData.get('companyName') || ''),
-      workEmail: String(formData.get('workEmail') || ''),
-      projectScope: String(formData.get('projectScope') || ''),
-      service: selectedService,
-      budget: selectedBudget,
-      timeline: String(formData.get('timeline') || ''),
-    };
+    formData.append('service', selectedService);
+    formData.append('budget', selectedBudget);
+    formData.append('type', 'Empire Build Inquiry');
 
     try {
-      const response = await fetch('/api/hire', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || 'UPLINK_FAILURE');
-      setStatus({ type: 'success', message: `Protocol Initiated. RefID: ${data.referenceId}` });
+      const result = await sendEmailAction(formData);
+
+      if (result.error) throw new Error(result.error);
+
+      setStatus({ type: 'success', message: `Protocol Initiated. Transmission_ID: ${result.id.substring(0, 8)}` });
       form.reset();
       setSelectedService("");
       setSelectedBudget("");
@@ -54,7 +47,7 @@ export default function HirePage() {
           <h2 className="relative z-10 text-4xl md:text-7xl font-sync font-bold uppercase tracking-tighter text-white leading-none">
             Begin Your <span className="text-[#FF6B00]">System Audit</span>
           </h2>
-          
+
           <p className="max-w-2xl mt-6 text-slate-400 text-xs md:text-sm uppercase tracking-widest leading-relaxed font-medium">
             We don't just build features; we architect certainty. Brief us on your technical obstacles below.
           </p>
@@ -70,7 +63,7 @@ export default function HirePage() {
                 <ShieldCheck size={20} className="text-[#00E5FF]" />
                 <span className="text-[10px] font-bold uppercase tracking-[0.3em]">The Guarantee</span>
               </div>
-              <h3 className="text-xl font-sync font-bold uppercase mb-4 leading-tight">Zero <br/> Bottlenecks</h3>
+              <h3 className="text-xl font-sync font-bold uppercase mb-4 leading-tight">Zero <br /> Bottlenecks</h3>
               <p className="text-[10px] text-slate-500 uppercase leading-loose tracking-wide font-medium">
                 Every project begins with a deep-scan audit. We identify the rot in your current system before writing a single line of new code.
               </p>
@@ -81,7 +74,7 @@ export default function HirePage() {
                 <Cpu size={20} className="text-[#FF6B00]" />
                 <span className="text-[10px] font-bold uppercase tracking-[0.3em]">The Workflow</span>
               </div>
-              <h3 className="text-xl font-sync font-bold uppercase mb-4 leading-tight">Extreme <br/> Velocity</h3>
+              <h3 className="text-xl font-sync font-bold uppercase mb-4 leading-tight">Extreme <br /> Velocity</h3>
               <p className="text-[10px] text-slate-500 uppercase leading-loose tracking-wide font-medium">
                 No middle managers. No bloat. You work directly with the 8 senior architects who execute your vision in 1-week sprints.
               </p>
@@ -153,14 +146,14 @@ export default function HirePage() {
 
                 {/* Submit */}
                 <div className="flex flex-col md:flex-row items-center gap-6 pt-4">
-                  <button 
-                    disabled={status.type === 'loading'} 
+                  <button
+                    disabled={status.type === 'loading'}
                     className="w-full md:w-auto px-12 py-5 bg-[#FF6B00] text-black font-black text-xs uppercase hover:bg-[#00E5FF] transition-all flex items-center justify-center gap-3 group shadow-[0_0_20px_rgba(255,107,0,0.3)] disabled:opacity-60"
                   >
                     {status.type === 'loading' ? 'Establishing Uplink...' : 'Submit Briefing'}
                     <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                   </button>
-                  
+
                   {status.type !== 'idle' && (
                     <p className={`text-[10px] font-bold uppercase tracking-widest ${status.type === 'success' ? 'text-[#22C55E]' : status.type === 'error' ? 'text-red-400' : 'text-[#00E5FF]'}`}>
                       {status.message}
@@ -168,7 +161,7 @@ export default function HirePage() {
                   )}
                 </div>
               </form>
-              
+
               {/* Background Accent */}
               <div className="absolute bottom-0 right-0 w-64 h-64 bg-[#FF6B00] opacity-[0.03] blur-[100px] -mr-32 -mb-32 rounded-full pointer-events-none" />
             </BentoCard>

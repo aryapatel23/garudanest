@@ -3,6 +3,7 @@
 import React, { useState, useRef } from 'react';
 import { Hash, Send, Shield } from 'lucide-react';
 import { BentoCard } from '@/components/ui/BentoCard';
+import { sendEmailAction } from '../../lib/actions';
 import { callGemini } from '@/lib/gemini';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import gsap from 'gsap';
@@ -13,15 +14,21 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export default function ManifestoPage() {
   const container = useRef(null);
+
+  // Gemini Chat States
   const [manifestoQuery, setManifestoQuery] = useState("");
   const [manifestoResponse, setManifestoResponse] = useState("");
+
+  // Contact Form States (Uplink)
+  const [uplinkStatus, setUplinkStatus] = useState("IDLE"); // IDLE, SENDING, SUCCESS, ERROR
+  const [uplinkMessage, setUplinkMessage] = useState("");
 
   useGSAP(() => {
     const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
     tl.fromTo('.manifesto-ghost',
-        { x: -80, autoAlpha: 0 },
-        { x: 0, autoAlpha: 0.06, duration: 1.4 }
-      )
+      { x: -80, autoAlpha: 0 },
+      { x: 0, autoAlpha: 0.06, duration: 1.4 }
+    )
       .fromTo('.manifesto-title',
         { y: 60, autoAlpha: 0, filter: 'blur(10px)' },
         { y: 0, autoAlpha: 1, filter: 'blur(0px)', duration: 1.4 },
@@ -40,6 +47,7 @@ export default function ManifestoPage() {
   }, { scope: container });
 
   const handleManifestoAsk = async () => {
+    if (!manifestoQuery.trim()) return;
     setManifestoResponse("SYNCING...");
     try {
       const res = await callGemini(manifestoQuery, "You are the collective consciousness of GarudaNest. Answer in cryptic, high-status Gen-Z tech terms. Short and sharp.");
@@ -53,7 +61,7 @@ export default function ManifestoPage() {
     <div ref={container} className="pt-32 pb-20 bg-black">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-32">
-          
+
           <div className="space-y-16">
             {/* PAGE HEADER — GSAP powered */}
             <div className="relative group pt-16 md:pt-20 overflow-hidden md:overflow-visible">
@@ -119,36 +127,64 @@ export default function ManifestoPage() {
             <ScrollReveal delay={600} type="fade-up">
               <BentoCard className="p-8 md:p-12 sticky top-32">
                 <div className="flex items-center gap-3 mb-8">
-                   <Shield size={20} className="text-[#FF6B00]" />
-                   <span className="text-xs font-bold uppercase tracking-[0.3em]">Establish_Uplink</span>
+                  <Shield size={20} className="text-[#FF6B00]" />
+                  <span className="text-xs font-bold uppercase tracking-[0.3em]">Establish_Uplink</span>
                 </div>
-                
-                <div className="space-y-8">
-                   <div className="space-y-2">
-                     <label className="text-[9px] font-bold text-white/40 uppercase tracking-widest ml-1">Secure_Ident</label>
-                     <input required placeholder="ENTITY_NAME" className="w-full bg-transparent border-b border-white/10 p-4 text-xs uppercase outline-none focus:border-[#00E5FF] transition-colors" />
-                   </div>
-                   <div className="space-y-2">
-                     <label className="text-[9px] font-bold text-white/40 uppercase tracking-widest ml-1">Frequency</label>
-                     <input required type="email" placeholder="EMAIL@PROTOCOL.COM" className="w-full bg-transparent border-b border-white/10 p-4 text-xs uppercase outline-none focus:border-[#00E5FF] transition-colors" />
-                   </div>
-                   <div className="space-y-2">
-                     <label className="text-[9px] font-bold text-white/40 uppercase tracking-widest ml-1">Transmission</label>
-                     <textarea rows={4} placeholder="ENCRYPTED_MESSAGE..." className="w-full bg-transparent border-b border-white/10 p-4 text-xs uppercase outline-none focus:border-[#00E5FF] transition-colors resize-none" />
-                   </div>
-                   
-                   <button className="w-full bg-[#FF6B00] text-black py-5 font-black text-xs uppercase hover:bg-white transition-all shadow-[0_0_20px_rgba(255,107,0,0.2)]">
-                     Execute Transmission
-                   </button>
-                   
-                   <p className="text-[9px] text-white/20 uppercase tracking-widest text-center mt-6">
-                     Secure end-to-end node encryption active.
-                   </p>
-                </div>
+
+                <form
+                  onSubmit={async (e) => {
+                    e.preventDefault();
+                    setUplinkStatus("SENDING");
+                    const formData = new FormData(e.currentTarget);
+                    formData.append('type', 'Manifesto Transmission');
+                    const result = await sendEmailAction(formData);
+                    if (result.success) {
+                      setUplinkStatus("SUCCESS");
+                      setUplinkMessage("TRANSMISSION_SUCCESS: NODE_NOTIFIED");
+                      e.target.reset();
+                    } else {
+                      setUplinkStatus("ERROR");
+                      setUplinkMessage(`ENCRYPTION_FAULT: ${result.error}`);
+                    }
+                  }}
+                  className="space-y-8"
+                >
+                  <div className="space-y-2">
+                    <label className="text-[9px] font-bold text-white/40 uppercase tracking-widest ml-1">Secure_Ident</label>
+                    <input name="companyName" required placeholder="ENTITY_NAME" className="w-full bg-transparent border-b border-white/10 p-4 text-xs uppercase outline-none focus:border-[#00E5FF] transition-colors" />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[9px] font-bold text-white/40 uppercase tracking-widest ml-1">Frequency (Email)</label>
+                    <input name="workEmail" required type="email" placeholder="EMAIL@PROTOCOL.COM" className="w-full bg-transparent border-b border-white/10 p-4 text-xs uppercase outline-none focus:border-[#00E5FF] transition-colors" />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[9px] font-bold text-white/40 uppercase tracking-widest ml-1">Transmission</label>
+                    <textarea name="projectScope" rows={4} placeholder="ENCRYPTED_MESSAGE..." className="w-full bg-transparent border-b border-white/10 p-4 text-xs uppercase outline-none focus:border-[#00E5FF] transition-colors resize-none" />
+                  </div>
+
+                  <div className="space-y-4">
+                    <button
+                      disabled={uplinkStatus === "SENDING"}
+                      className="w-full bg-[#FF6B00] text-black py-5 font-black text-xs uppercase hover:bg-white transition-all shadow-[0_0_20px_rgba(255,107,0,0.2)] disabled:opacity-50"
+                    >
+                      {uplinkStatus === "SENDING" ? "establishing uplink..." : "Execute Transmission"}
+                    </button>
+
+                    {uplinkStatus !== "IDLE" && (
+                      <div className={`text-[10px] font-bold uppercase tracking-widest text-center mt-4 p-3 border animate-in fade-in slide-in-from-top-2 duration-500 ${uplinkStatus === 'SUCCESS' ? 'border-green-500/20 text-green-400 bg-green-500/10' : 'border-red-500/20 text-red-500 bg-red-500/10'}`}>
+                        {uplinkMessage}
+                      </div>
+                    )}
+                  </div>
+
+                  <p className="text-[9px] text-white/20 uppercase tracking-widest text-center mt-6">
+                    Secure end-to-end node encryption active.
+                  </p>
+                </form>
               </BentoCard>
             </ScrollReveal>
           </div>
-          
+
         </div>
       </div>
     </div>
