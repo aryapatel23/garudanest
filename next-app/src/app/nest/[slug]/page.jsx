@@ -3,7 +3,35 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { teamMembers } from '@/lib/constants';
-import { X, Terminal, ShieldAlert, Cpu, Network } from 'lucide-react'; 
+import { X as CloseIcon, Terminal, ShieldAlert, Cpu, Network, ExternalLink } from 'lucide-react'; 
+
+// Custom SVG Icons for maximum reliability and aesthetic control
+const GithubIcon = ({ size = 18, className = "" }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+    </svg>
+);
+
+const LinkedinIcon = ({ size = 18, className = "" }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+        <rect x="2" y="9" width="4" height="12"></rect>
+        <circle cx="4" cy="4" r="2"></circle>
+    </svg>
+);
+
+const XIcon = ({ size = 16, className = "" }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+);
+
+const MailIcon = ({ size = 14, className = "" }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+        <polyline points="22,6 12,13 2,6"></polyline>
+    </svg>
+);
 
 export default function PersonnelPage() {
     const params = useParams();
@@ -70,14 +98,14 @@ export default function PersonnelPage() {
             
             {/* LEFT COLLUMN: JS-SYNCED FIXED PORTRAIT (Never overlaps footer) */}
             <div 
-                className="relative md:fixed md:top-24 md:left-0 w-full md:w-1/2 h-[60vh] md:h-[calc(100vh-96px)] z-10 overflow-hidden"
+                className="relative md:fixed md:top-0 md:left-0 w-full md:w-1/2 h-[60vh] md:h-screen z-10 overflow-hidden"
                 style={{ transform: `translateY(-${scrollOffset}px)` }}
             >
                 <div className={`relative w-full h-full bg-black border-r border-white/5 transition-transform duration-[1.5s] ease-out ${isLoaded ? 'translate-x-0' : '-translate-x-[100%]'}`}>
                     <img 
                         src={member.image} 
                         alt={member.name}
-                        className="absolute inset-0 w-full h-full object-cover object-top grayscale opacity-80 scale-105"
+                        className="absolute inset-0 w-full h-full object-cover object-center grayscale opacity-80"
                     />
                     
                     {/* Simulated scanning laser line */}
@@ -113,7 +141,7 @@ export default function PersonnelPage() {
                     onClick={() => router.back()}
                     className="absolute top-6 right-6 md:top-12 md:right-12 z-[100] flex items-center justify-center w-12 h-12 text-white/70 hover:text-[#00E5FF] hover:border-[#00E5FF]/40 bg-black/80 backdrop-blur-xl border border-white/10 rounded-sm transition-all duration-500 group shadow-[0_4px_30px_rgba(0,0,0,0.5)] cursor-pointer hover:rotate-90 hover:bg-black"
                 >
-                    <X size={20} className="transition-transform group-hover:scale-110" />
+                    <CloseIcon size={20} className="transition-transform group-hover:scale-110" />
                 </button>
 
                 {/* Header Data */}
@@ -128,10 +156,27 @@ export default function PersonnelPage() {
                 </div>
 
                 <h1 className="text-5xl lg:text-7xl font-sync font-bold uppercase tracking-tighter mb-4 leading-[0.9]">{member.name}</h1>
-                <div className="h-[2px] w-16 bg-[#FF6B00] mb-12"></div>
+                <div className="h-[2px] w-16 bg-[#FF6B00] mb-8"></div>
+
+                {/* Communications Hub */}
+                <div className="flex items-center gap-6 mb-12">
+                    <a href={member.github} target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-[#00E5FF] transition-colors group">
+                        <GithubIcon className="group-hover:scale-110 transition-transform" />
+                    </a>
+                    <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-[#00E5FF] transition-colors group">
+                        <LinkedinIcon className="group-hover:scale-110 transition-transform" />
+                    </a>
+                    <a href={member.x} target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-[#00E5FF] transition-colors group p-0.5">
+                        <XIcon className="group-hover:scale-110 transition-transform" />
+                    </a>
+                    <div className="w-[1px] h-4 bg-white/10" />
+                    <a href={`mailto:${member.email}`} className="text-[10px] font-mono text-white/40 hover:text-[#00FF57] uppercase tracking-widest transition-colors flex items-center gap-2">
+                        <MailIcon /> Send_Signal
+                    </a>
+                </div>
 
                 <p className="text-sm md:text-base text-slate-400 uppercase leading-[2] tracking-widest font-medium max-w-xl mb-16">
-                    {member.bio}
+                    {member.longBio || member.bio}
                 </p>
 
                 {/* Operational Matrix Grid */}
@@ -162,6 +207,19 @@ export default function PersonnelPage() {
                         <span className="block mt-4 text-right text-[8px] font-mono text-white/30 uppercase tracking-[0.3em]">Log.Activity // Live</span>
                     </div>
 
+                </div>
+
+                {/* Primary Action Nodes */}
+                <div className="flex flex-col sm:flex-row gap-4 mb-20">
+                    <a 
+                        href={member.portfolio} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="flex-1 group flex items-center justify-between px-6 py-4 bg-white/[0.03] border border-white/10 hover:border-[#00E5FF]/40 transition-all duration-500 hover:bg-[#00E5FF]/5"
+                    >
+                        <span className="text-[10px] font-bold text-white uppercase tracking-[0.3em] group-hover:text-[#00E5FF]">Deploy_Portfolio_Link</span>
+                        <ExternalLink size={14} className="text-white/40 group-hover:text-[#00E5FF] group-hover:translate-x-1 transition-all" />
+                    </a>
                 </div>
 
                 {/* Clearance Diagnostics */}

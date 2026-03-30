@@ -8,6 +8,10 @@ const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space
 export const metadata: Metadata = {
   title: "GarudaNest | Elite Developers Building Systems That Soar",
   description: "A tight collective of top full-stack, backend & AI engineers turning bold ideas into scalable reality. Fast. Reliable. Production-Ready.",
+  icons: {
+    icon: "https://res.cloudinary.com/dczue3n9b/image/upload/v1773997242/1773927705698_e_1775692800_v_beta_t_wnK_isUP_7OGaqksgyBNyb3Z-2mX6HKiY49f_cp67X4_kkmle0.png",
+    apple: "https://res.cloudinary.com/dczue3n9b/image/upload/v1773997242/1773927705698_e_1775692800_v_beta_t_wnK_isUP_7OGaqksgyBNyb3Z-2mX6HKiY49f_cp67X4_kkmle0.png",
+  },
   openGraph: {
     title: "GarudaNest | Digital Systems That Soar",
     description: "Elite full-stack & AI developers building scalable production-grade systems.",
@@ -15,6 +19,7 @@ export const metadata: Metadata = {
     siteName: "GarudaNest",
     locale: "en_US",
     type: "website",
+    images: ["https://res.cloudinary.com/dczue3n9b/image/upload/v1773997242/1773927705698_e_1775692800_v_beta_t_wnK_isUP_7OGaqksgyBNyb3Z-2mX6HKiY49f_cp67X4_kkmle0.png"]
   },
 };
 
@@ -22,6 +27,8 @@ import { Preloader } from "@/components/ui/Preloader";
 import { AmbientUI } from "@/components/ui/AmbientUI";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { MagneticCursor } from "@/components/ui/MagneticCursor";
+import { GlobalAudio } from "@/components/ui/GlobalAudio";
 
 export default function RootLayout({
   children,
@@ -29,7 +36,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth overflow-x-hidden">
+    <html lang="en" className="scroll-smooth overflow-x-clip">
       <head>
         <script
           type="application/ld+json"
@@ -54,7 +61,9 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.variable} ${spaceGrotesk.variable} font-sans antialiased text-white bg-[#050505] overflow-x-hidden`}>
+      <body className={`${inter.variable} ${spaceGrotesk.variable} font-sans antialiased text-white bg-[#050505] overflow-x-clip`}>
+        <MagneticCursor />
+        <GlobalAudio />
         <Preloader />
         <AmbientUI />
         <Header />
@@ -66,3 +75,4 @@ export default function RootLayout({
     </html>
   );
 }
+

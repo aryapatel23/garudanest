@@ -47,6 +47,7 @@ export const Preloader = () => {
         <GarudaLogo animated glow className="w-48 h-48" />
         <div className="absolute -inset-10 bg-[#FF6B00]/5 blur-[100px] animate-pulse"></div>
       </div>
+      
       <div className="text-center font-mono">
         <div className="text-[10px] tracking-[1em] uppercase text-white/40 mb-2">System Load</div>
         <div className="text-xs text-[#00E5FF] uppercase font-bold tracking-widest">{loadStatus}</div>
