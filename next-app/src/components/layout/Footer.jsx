@@ -51,7 +51,7 @@ export const Footer = () => (
       </div>
       
       <div className="flex flex-col md:flex-row justify-between items-center pt-10 border-t border-white/5 text-[9px] text-white/20 uppercase tracking-[0.3em] md:tracking-[0.5em] font-bold gap-4 text-center">
-        <span>garudanest collective // all nodes active</span>
+        <span>MADE BY <span className="text-white">ARYA PATEL</span> // GARUDANEST COLLECTIVE</span>
         <span className="flex items-center gap-2">
             <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div> 
             EST. 2026 // VERSION 2.1.0

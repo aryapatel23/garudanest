@@ -160,7 +160,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto w-full relative">
           <div className="flex items-center gap-3 mb-8 md:mb-10 hero-node opacity-0 -translate-x-4">
             <div className="h-[1px] w-12 md:w-16 bg-[#FF6B00]"></div>
-            <span className="text-[9px] md:text-[10px] uppercase tracking-[0.4em] md:tracking-[0.5em] text-[#FF6B00] font-bold">Node 0x1 // Established 2026</span>
+            <span className="text-[9px] md:text-[10px] uppercase tracking-[0.4em] md:tracking-[0.5em] text-[#FF6B00] font-bold">Node 0x1 // MADE BY ARYA PATEL // Est. 2026</span>
           </div>
 
           <h1 className="font-sync text-6xl sm:text-8xl md:text-[11vw] font-black leading-[0.9] md:leading-[0.8] uppercase tracking-tighter mb-12 md:mb-16 relative perspective-1000">
