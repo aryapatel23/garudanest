@@ -12,10 +12,10 @@ export const AmbientUI = () => {
       setScrollProgress(window.scrollY / (totalScroll || 1));
     };
     const handleMove = (e) => setMousePos({ x: e.clientX, y: e.clientY });
-    
+
     window.addEventListener('scroll', handleScroll);
     window.addEventListener('mousemove', handleMove);
-    
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('mousemove', handleMove);
@@ -24,7 +24,8 @@ export const AmbientUI = () => {
 
   return (
     <>
-      <style dangerouslySetInnerHTML={{__html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         .custom-cursor {
           width: 12px; height: 12px;
           background: #FF6B00;
@@ -57,12 +58,12 @@ export const AmbientUI = () => {
         <div className="scanline" />
       </div>
 
-      <div 
-        className="custom-cursor" 
+      <div
+        className="custom-cursor"
         style={{ left: mousePos.x, top: mousePos.y, transform: 'translate(-50%, -50%)' }}
       />
 
-      <div 
+      <div
         className="fixed bottom-0 left-0 h-1 bg-[#FF6B00] z-[100] transition-all duration-100"
         style={{ width: `${scrollProgress * 100}%` }}
       />

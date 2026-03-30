@@ -132,6 +132,34 @@ export const teamMembers = [
 ];
 
 export const projects = [
+  { 
+    title: "DhanPath — Daily Tracker", 
+    stack: ["Flutter", "SQLite", "Provider", "ML Kit"], 
+    p: "Inconsistent daily spending awareness & manual expense logging friction.", 
+    s: "Automated SMS-parsing (20+ Indian Banks) + Daily Budget Ring (19/20 Core Loop).", 
+    r: "Gamified financial discipline with 100% offline privacy architecture.",
+    playStore: "https://play.google.com/store/apps/details?id=com.dhanpath.tracker",
+    video: "https://www.youtube.com/embed/QAsAFSavyIs",
+    poster: "https://img.youtube.com/vi/QAsAFSavyIs/maxresdefault.jpg",
+    github: "https://github.com/kalp-cg/DhanPath", // Restricted
+    fullDescription: {
+      tagline: "Know exactly how much you can spend today. Track automatically.",
+      hero: "Built for Indian users, DhanPath automatically reads your bank SMS messages, calculates your daily budget, and shows your remaining funds in a beautiful visual ring.",
+      features: [
+        { t: "Daily Budget Ring", d: "Updates in real-time based on (Monthly Budget - Spent) ÷ Days Remaining." },
+        { t: "SMS Auto-Parse", d: "Supports HDFC, ICICI, SBI, Axis, PhonePe, GPay, and 10+ others with zero manual entry." },
+        { t: "Streak Tracking", d: "Encourages Habit Formation through daily engagement badges." },
+        { t: "100% Offline", d: "Privacy as a feature—no financial data ever leaves the device." }
+      ],
+      architecture: [
+        "Clean Architecture (Layered separation of concerns)",
+        "Repository Pattern for SQLite database abstraction",
+        "Factory Pattern for multi-bank SMS parsing logic",
+        "Provider (ChangeNotifier) for real-time state management"
+      ],
+      techStack: ["Flutter 3.38.2", "Dart 3.6.0", "sqflite", "telephony", "ML Kit OCR"]
+    }
+  },
   { title: "Nexus Commerce", stack: ["Next.js", "Prisma", "Postgres"], p: "Checkout drop-offs under load", s: "Rebuilt flow + optimized data paths", r: "31% faster checkout, +18% conversion" },
   { title: "Atlas Dispatch AI", stack: ["FastAPI", "RAG", "Vector DB"], p: "Manual support triage bottleneck", s: "Auto-routing with confidence scoring", r: "42% ticket deflection" },
   { title: "Pulse Finance Core", stack: ["Node", "Kafka", "Redis"], p: "Inconsistent transactions at peak", s: "Event-driven idempotent processing", r: "99.99% reliability" },

@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { projects } from '@/lib/constants';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ChevronRight, X } from 'lucide-react';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
+import { ProjectModal } from '@/components/ui/ProjectModal';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -12,6 +13,7 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export default function WorkPage() {
   const container = useRef(null);
+  const [selectedProject, setSelectedProject] = useState(null);
 
   useGSAP(() => {
     // ── Header stagger timeline ────────────────────────────────────────────
@@ -130,7 +132,8 @@ export default function WorkPage() {
           {projects.map((project, index) => (
             <div
               key={project.title}
-              className="work-card bg-[#0a0a0a] border border-white/5 flex flex-col overflow-hidden group hover:border-[#FF6B00]/30 transition-colors duration-500 will-change-transform"
+              onClick={() => setSelectedProject(project)}
+              className="work-card bg-[#0a0a0a] border border-white/5 flex flex-col overflow-hidden group hover:border-[#FF6B00]/30 transition-colors duration-500 will-change-transform cursor-pointer"
               style={{ clipPath: 'inset(100% 0% 0% 0%)' }}
             >
               {/* Card Header & Content */}
@@ -192,22 +195,54 @@ export default function WorkPage() {
                 {/* Footer glow line on hover */}
                 <div className="absolute bottom-0 left-0 h-[1px] w-0 bg-gradient-to-r from-[#FF6B00] to-[#00E5FF] group-hover:w-full transition-all duration-700" />
 
-                <div className="flex gap-8">
-                  <a href="#" className="text-[10px] uppercase font-bold tracking-[0.3em] text-white hover:text-[#00E5FF] transition-colors flex items-center gap-2 group/link">
-                    Live Demo <ArrowRight size={10} className="group-hover/link:translate-x-1 transition-transform" />
-                  </a>
-                  <a href="#" className="text-[10px] uppercase font-bold tracking-[0.3em] text-white hover:text-[#FF6B00] transition-colors flex items-center gap-2 group/link">
-                    Github <ArrowRight size={10} className="group-hover/link:translate-x-1 transition-transform" />
-                  </a>
+                <div className="flex gap-8 relative z-20">
+                  {project.playStore ? (
+                    <a 
+                      href={project.playStore} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      onClick={(e) => { e.stopPropagation(); }}
+                      className="text-[10px] uppercase font-bold tracking-[0.3em] text-[#00E5FF] hover:text-white transition-colors flex items-center gap-2 group/link"
+                    >
+                      Live <ArrowRight size={10} className="group-hover/link:translate-x-1 transition-transform" />
+                    </a>
+                  ) : project.live ? (
+                    <a 
+                      href={project.live} 
+                      onClick={(e) => { e.stopPropagation(); }}
+                      className="text-[10px] uppercase font-bold tracking-[0.3em] text-white hover:text-[#00E5FF] transition-colors flex items-center gap-2 group/link"
+                    >
+                      Live Demo <ArrowRight size={10} className="group-hover/link:translate-x-1 transition-transform" />
+                    </a>
+                  ) : null}
+
+                  {project.github && (
+                    <a 
+                      href={project.github} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      onClick={(e) => { e.stopPropagation(); }}
+                      className="text-[10px] uppercase font-bold tracking-[0.3em] text-white/40 hover:text-white transition-colors flex items-center gap-2 group/link"
+                    >
+                      Github <ArrowRight size={10} className="group-hover/link:translate-x-1 transition-transform" />
+                    </a>
+                  )}
                 </div>
-                <span className="text-[9px] text-white/10 font-mono tracking-widest uppercase select-none">
-                  NODE_REF_{index + 1}x
-                </span>
+                <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span className="text-[10px] text-[#FF6B00] uppercase font-bold tracking-widest">View Intel</span>
+                  <ChevronRight size={12} className="text-[#FF6B00]" />
+                </div>
               </div>
             </div>
           ))}
         </div>
       </div>
+
+      <ProjectModal 
+        project={selectedProject}
+        isOpen={!!selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />
     </div>
   );
 }

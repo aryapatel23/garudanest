@@ -8,78 +8,19 @@ import {
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { BRAND, teamMembers, projects, testimonials } from '@/lib/constants';
+import { GarudaLogo } from '@/components/ui/GarudaLogo';
+import { ScrollReveal } from '@/components/ui/ScrollReveal';
+import { ProjectModal } from '@/components/ui/ProjectModal';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-const Twitter = ({ size = 24, className = "" }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" /></svg>
-);
-
-const Instagram = ({ size = 24, className = "" }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></svg>
-);
-
-const Linkedin = ({ size = 24, className = "" }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></svg>
-);
-
-// --- Brand Data ---
-const BRAND = {
-  name: "garudanest",
-  email: "teamgarudanest@gmail.com",
-  social: {
-    instagram: "https://www.instagram.com/teamgarudanest/",
-    twitter: "https://x.com/teamgarudanest",
-    linkedin: "https://www.linkedin.com/in/teamgarudanest/"
-  }
-};
-
-const teamMembers = [
-  { name: "Kalpan Kaneriya", slug: "kalpan-kaneriya", role: "Frontend", bio: "Crafts high-performance UI systems for product teams.", tags: ["Next.js", "UI", "A11y"], image: "https://res.cloudinary.com/dzsvjyg2c/image/upload/v1774674812/WhatsApp_Image_2026-03-26_at_6.22.25_PM_qszeev.jpg" },
-  { name: "Kalp Patel", slug: "kalp-patel", role: "Backend", bio: "Builds reliable APIs and distributed services at scale.", tags: ["Node", "Prisma", "Postgres"], image: "https://res.cloudinary.com/dzsvjyg2c/image/upload/v1774674783/WhatsApp_Image_2026-03-26_at_6.27.49_PM_dx4haa.jpg" },
-  { name: "Jatin Rajvani", slug: "jatin-rajvani", role: "AI", bio: "Ships applied AI systems from prototype to production.", tags: ["RAG", "Evaluation", "MLOps"], image: "https://res.cloudinary.com/dzsvjyg2c/image/upload/v1774717255/copy_of_whatsapp_image_2026-03-26_at_62603_pm_alcs0k_542f5b.jpg" },
-  { name: "Sujal Vasara", slug: "sujal-vasara", role: "DevOps", bio: "Designs cloud infra with speed, resilience, and observability.", tags: ["K8s", "CI/CD", "SRE"], image: "https://res.cloudinary.com/dzsvjyg2c/image/upload/v1774674777/WhatsApp_Image_2026-03-26_at_6.26.03_PM_1_nxtygv.jpg" },
-  { name: "Prem Kambaliya", slug: "prem-kambaliya", role: "Frontend", bio: "Builds conversion-focused interfaces with premium UX polish.", tags: ["React", "Motion", "Design"], image: "https://res.cloudinary.com/dzsvjyg2c/image/upload/v1774674771/WhatsApp_Image_2026-03-26_at_6.26.04_PM_rgtl7g.jpg" },
-  { name: "Arya Patel", slug: "arya-patel", role: "Backend", bio: "Owns core architecture for high-throughput backend systems.", tags: ["Microservices", "Caching", "Queues"], image: "https://res.cloudinary.com/dzsvjyg2c/image/upload/v1774675438/1279d915-53ad-44b7-ad38-caa434ff8915.png" },
-  { name: "Dax Patel", slug: "dax-patel", role: "DevOps", bio: "Automates secure deployments and developer platforms.", tags: ["Terraform", "Security", "Cloud"], image: "https://res.cloudinary.com/dzsvjyg2c/image/upload/v1774674778/WhatsApp_Image_2026-03-26_at_6.26.26_PM_mkbsic.jpg" },
-  { name: "Mohil Mundke", slug: "mohil-mundke", role: "AI", bio: "Creates AI pipelines that improve product decisions.", tags: ["NLP", "Python", "Data"], image: "https://res.cloudinary.com/dzsvjyg2c/image/upload/v1774675847/WhatsApp_Image_2026-03-28_at_11.00.19_AM_u1igzf.jpg" },
-];
-
-const projects = [
-  { title: "Nexus Commerce", stack: ["Next.js", "Prisma", "Postgres"], p: "Checkout drop-offs under load", s: "Rebuilt flow + optimized data paths", r: "31% faster checkout, +18% conversion" },
-  { title: "Atlas Dispatch AI", stack: ["FastAPI", "RAG", "Vector DB"], p: "Manual support triage bottleneck", s: "Auto-routing with confidence scoring", r: "42% ticket deflection" },
-  { title: "Pulse Finance Core", stack: ["Node", "Kafka", "Redis"], p: "Inconsistent transactions at peak", s: "Event-driven idempotent processing", r: "99.99% reliability" },
-  { title: "Orbit Talent Cloud", stack: ["React", "GraphQL", "S3"], p: "Low application completion", s: "Streamlined hiring UX", r: "+27% completed applications" },
-];
-
-const testimonials = [
-  { name: "Anika Rao", role: "Product Lead", quote: "GarudaNest shipped in weeks what others estimated for quarters." },
-  { name: "Rafi Ananta", role: "Senior Backend Engineer", quote: "Peer quality is unreal. Every sprint makes you sharper." },
-  { name: "Milan Shah", role: "Founder", quote: "Fast, sharp, and reliable delivery without management bloat." },
-];
-
-import { ScrollReveal } from '@/components/ui/ScrollReveal';
-
-// --- The Logo Component ---
-const GarudaLogo = ({ className = "w-12 h-12", animated = false, glow = false }) => (
-  <div className={`relative ${className} ${glow ? 'drop-shadow-[0_0_15px_rgba(255,107,0,0.5)]' : ''}`}>
-    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-      <path d="M50 5 L95 27.5 L95 72.5 L50 95 L5 72.5 L5 27.5 Z" stroke="currentColor" strokeWidth="0.5" opacity="0.2" />
-      <path
-        d="M80 35 L50 15 L20 35 L20 65 L50 85 L80 65 L80 50 L55 50"
-        stroke="#FF6B00"
-        strokeWidth="6"
-        strokeLinecap="square"
-        strokeLinejoin="miter"
-      />
-      <rect x="48" y="48" width="4" height="4" fill="#00E5FF" className="animate-pulse" />
-    </svg>
-  </div>
-);
+// Local data removed; now imported from @/lib/constants
 
 export default function App() {
   const container = useRef();
   const [shuffledMembers, setShuffledMembers] = useState([]);
+  const [selectedProject, setSelectedProject] = useState(null);
 
   const shuffle = (array) => {
     const shuffled = [...array];
@@ -409,8 +350,11 @@ export default function App() {
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {projects.map((project, index) => (
-              <ScrollReveal key={project.title} delay={index * 200} type="blur-in" className="h-full">
-                  <div className="bg-[#0a0a0a] border border-white/5 flex flex-col h-full overflow-hidden group hover:border-white/20 transition-all">
+              <ScrollReveal key={project.title} delay={index * 200} type="blur-in" className="h-full font-sync">
+                  <div 
+                    onClick={() => setSelectedProject(project)}
+                    className="bg-[#0a0a0a] border border-white/5 flex flex-col h-full overflow-hidden group hover:border-white/20 transition-all cursor-pointer relative"
+                  >
                     <div className="p-8 md:p-10 border-b border-white/5 flex-grow">
                       <div className="flex flex-wrap gap-2 mb-6">
                         {project.stack.map((tag) => (
@@ -420,40 +364,67 @@ export default function App() {
                         ))}
                       </div>
 
-                      <h3 className="text-2xl md:text-4xl font-sync font-bold uppercase mb-6 tracking-tighter leading-tight text-white">
+                      <h3 className="text-2xl md:text-3xl font-bold uppercase mb-6 tracking-tighter leading-tight text-white group-hover:text-[#FF6B00] transition-colors">
                         {project.title}
                       </h3>
 
                       <div className="space-y-4 mb-6">
                         <div className="flex flex-col gap-1.5">
                           <span className="text-[10px] font-bold text-[#FF6B00] uppercase tracking-[0.2em]">Problem:</span>
-                          <p className="text-[10px] text-slate-400 uppercase font-medium leading-relaxed tracking-wider">{project.p}</p>
+                          <p className="text-[10px] text-slate-400 uppercase font-medium leading-relaxed tracking-wider line-clamp-2">{project.p}</p>
                         </div>
                         <div className="flex flex-col gap-1.5">
                           <span className="text-[10px] font-bold text-[#00E5FF] uppercase tracking-[0.2em]">Solution:</span>
-                          <p className="text-xs text-slate-400 uppercase font-medium leading-relaxed tracking-wider">{project.s}</p>
+                          <p className="text-xs text-slate-400 uppercase font-medium leading-relaxed tracking-wider line-clamp-2">{project.s}</p>
                         </div>
                       </div>
 
-                      <div className="bg-[#FF6B00]/5 border-l-2 border-[#FF6B00] p-4 md:p-5 mb-2">
-                        <p className="text-xs md:text-[12px] text-white font-bold uppercase tracking-widest leading-none">
+                      <div className="bg-[#FF6B00]/5 border-l-2 border-[#FF6B00] p-4 md:p-5 mb-2 relative overflow-hidden">
+                        <div className="absolute inset-0 bg-[#FF6B00]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                        <p className="relative text-xs md:text-[12px] text-white font-bold uppercase tracking-widest leading-none">
                           {project.r}
                         </p>
                       </div>
                     </div>
 
-                    <div className="bg-[#0d0d0d] p-5 md:p-6 flex justify-between items-center group-hover:bg-[#111] transition-colors relative">
-                      <div className="flex gap-8">
-                        <a href="#" className="text-[10px] uppercase font-bold tracking-[0.3em] text-white hover:text-[#00E5FF] transition-colors flex items-center gap-2">
-                          Live Demo <ArrowRight size={10} />
-                        </a>
-                        <a href="#" className="text-[10px] uppercase font-bold tracking-[0.3em] text-white hover:text-[#FF6B00] transition-colors flex items-center gap-2">
-                          Github <ArrowRight size={10} />
-                        </a>
+                    <div className="bg-[#0d0d0d] p-5 md:p-6 flex justify-between items-center group-hover:bg-[#111] transition-colors relative mb-2">
+                      <div className="flex gap-4 md:gap-8 flex-wrap relative z-20">
+                        {project.playStore ? (
+                          <a 
+                            href={project.playStore} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            onClick={(e) => e.stopPropagation()}
+                            className="text-[10px] uppercase font-bold tracking-[0.3em] text-[#00E5FF] hover:text-white transition-colors flex items-center gap-2"
+                          >
+                             Live <ArrowRight size={10} />
+                          </a>
+                        ) : project.live ? (
+                          <a 
+                            href={project.live} 
+                            onClick={(e) => e.stopPropagation()}
+                            className="text-[10px] uppercase font-bold tracking-[0.3em] text-white hover:text-[#00E5FF] transition-colors flex items-center gap-2"
+                          >
+                            Live Demo <ArrowRight size={10} />
+                          </a>
+                        ) : null}
+                        
+                        {project.github && (
+                          <a 
+                            href={project.github} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            onClick={(e) => e.stopPropagation()}
+                            className="text-[10px] uppercase font-bold tracking-[0.3em] text-white/40 hover:text-white transition-colors flex items-center gap-2"
+                          >
+                            Github <ArrowRight size={10} />
+                          </a>
+                        )}
                       </div>
-                      <span className="text-[9px] text-white/10 font-mono tracking-widest uppercase select-none">
-                        NODE_REF_{index + 1}x
-                      </span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-[#FF6B00] opacity-0 group-hover:opacity-100 transition-all transform translate-x-2 group-hover:translate-x-0">View Intel</span>
+                        <ChevronRight size={12} className="text-[#FF6B00] opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
                     </div>
                   </div>
               </ScrollReveal>
@@ -489,9 +460,11 @@ export default function App() {
           </ScrollReveal>
 
           <ScrollReveal delay={400} type="fade-up" className="h-full">
-              <div className="bento-card p-6 md:p-8 flex flex-col justify-between bg-white text-black group h-full min-h-[160px]">
-                <Globe size={24} className="group-hover:rotate-180 transition-transform duration-1000" />
-                <h4 className="text-xl md:text-2xl font-bold tracking-tighter uppercase font-sync">Global <br /> Infra</h4>
+              <div className="bento-card p-6 md:p-8 flex flex-col justify-between group h-full min-h-[160px] relative overflow-hidden bg-black/40 border border-white/5">
+                {/* Visual Accent */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-[#00E5FF]/5 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                <Globe size={24} className="text-[#00E5FF] group-hover:rotate-180 transition-transform duration-1000" />
+                <h4 className="text-xl md:text-2xl font-bold tracking-tighter uppercase font-sync text-white">Global <br /> Infra</h4>
               </div>
           </ScrollReveal>
 
@@ -561,6 +534,13 @@ export default function App() {
           </div>
         </div>
       </section>
+
+      {/* --- PROJECT INTELLIGENCE MODAL --- */}
+      <ProjectModal 
+        project={selectedProject}
+        isOpen={!!selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />
 
     </div>
   );
