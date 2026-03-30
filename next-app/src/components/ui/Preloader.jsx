@@ -1,16 +1,21 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { GarudaLogo } from '@/components/ui/GarudaLogo';
 
 export const Preloader = () => {
   const [loading, setLoading] = useState(false);
   const [loadStatus, setLoadStatus] = useState("Initializing...");
+  const pathname = usePathname();
 
   useEffect(() => {
+    // ALWAYS reset to top on navigation (even if loader doesn't show)
+    window.scrollTo(0, 0);
+
     const hasLoaded = sessionStorage.getItem('garuda_loaded');
     if (hasLoaded) return;
-
+    
     setLoading(true);
     
     const statuses = [
@@ -37,19 +42,25 @@ export const Preloader = () => {
       clearTimeout(timer);
       clearInterval(statusInterval);
     };
-  }, []);
+  }, [pathname]);
 
   if (!loading) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center">
-      <div className="relative mb-12">
+    <div className="fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center overflow-hidden">
+      {/* Minimal Thematic Glow */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,107,0,0.03)_0%,transparent 70%)]"></div>
+      </div>
+
+      <div className="relative mb-12 z-10">
         <GarudaLogo animated glow className="w-48 h-48" />
-        <div className="absolute -inset-10 bg-[#FF6B00]/5 blur-[100px] animate-pulse"></div>
+        {/* Discrete Pulse Glow */}
+        <div className="absolute -inset-4 bg-[#FF6B00]/10 blur-3xl animate-pulse rounded-full opacity-50"></div>
       </div>
       
-      <div className="text-center font-mono">
-        <div className="text-[10px] tracking-[1em] uppercase text-white/40 mb-2">System Load</div>
+      <div className="text-center font-mono z-10">
+        <div className="text-[10px] tracking-[1em] uppercase text-white/20 mb-2">System Load</div>
         <div className="text-xs text-[#00E5FF] uppercase font-bold tracking-widest">{loadStatus}</div>
       </div>
     </div>

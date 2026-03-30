@@ -235,7 +235,11 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative z-10">
             {teamMembers.map((member, i) => (
-              <div key={i} className="reveal-up group relative aspect-[3/4] overflow-hidden bg-[#0a0a0a] border border-white/5 hover:border-[#00E5FF]/40 transition-all duration-500 flex flex-col justify-end p-6 cursor-crosshair">
+              <Link 
+                key={i} 
+                href={`/nest/${member.slug}`}
+                className="reveal-up group relative aspect-[3/4] overflow-hidden bg-[#0a0a0a] border border-white/5 hover:border-[#00E5FF]/40 transition-all duration-500 flex flex-col justify-end p-6 cursor-pointer"
+              >
                 
                 {/* Immersive Image */}
                 <div className="absolute inset-0">
@@ -272,7 +276,7 @@ export default function AboutPage() {
                       <div className="absolute inset-y-0 left-0 w-full bg-[#00E5FF] -translate-x-full group-hover:translate-x-0 transition-transform duration-700 ease-out" />
                     </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
 

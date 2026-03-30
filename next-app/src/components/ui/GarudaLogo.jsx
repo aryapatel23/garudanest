@@ -1,70 +1,47 @@
 "use client";
 
-import React, { useRef } from 'react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
+import React from 'react';
 
-export const GarudaLogo = ({ className = "w-12 h-12", animated = false, glow = false }) => {
-  const logoRef = useRef(null);
-  const glowRef = useRef(null);
-
-  useGSAP(() => {
-    if (!animated) return;
-
-    // Initial "Boot" sequence
-    gsap.fromTo(logoRef.current,
-      { filter: 'brightness(0) blur(10px)', scale: 0.8, opacity: 0 },
-      { 
-        filter: 'brightness(1) blur(0px)', 
-        scale: 1, 
-        opacity: 1, 
-        duration: 1.2, 
-        ease: 'power4.out',
-        delay: 0.5 
-      }
-    );
-
-    // Continuous pulse if glow is true
-    if (glow) {
-      gsap.to(glowRef.current, {
-        opacity: 0.6,
-        scale: 1.1,
-        duration: 2,
-        repeat: -1,
-        yoyo: true,
-        ease: 'sine.inOut'
-      });
-    }
-  }, { scope: logoRef, dependencies: [animated, glow] });
-
-  return (
-    <div ref={logoRef} className={`relative flex items-center justify-center ${className}`}>
-      {/* Outer Glow Halo */}
-      {glow && (
-        <div 
-          ref={glowRef}
-          className="absolute inset-0 bg-[#FF6B00]/20 blur-xl rounded-full scale-90 opacity-30 pointer-events-none"
-        />
-      )}
-      
-      {/* The Core Logo Asset */}
-      <img 
-        src="https://res.cloudinary.com/dczue3n9b/image/upload/v1773997242/1773927705698_e_1775692800_v_beta_t_wnK_isUP_7OGaqksgyBNyb3Z-2mX6HKiY49f_cp67X4_kkmle0.png"
-        alt="GarudaNest Logo"
-        className="w-full h-full object-contain relative z-10"
+/**
+ * GarudaLogo - Pure SVG Logic
+ * The original, geometric version of the GarudaNest logo.
+ */
+export const GarudaLogo = ({ className = "w-12 h-12", animated = false, glow = false }) => (
+  <div className={`relative flex items-center justify-center ${className} ${glow ? 'drop-shadow-[0_0_15px_rgba(255,107,0,0.5)]' : ''}`}>
+    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+      {/* Structural Hex-Frame (HUD Overlay) */}
+      <path 
+        d="M50 5 L95 27.5 L95 72.5 L50 95 L5 72.5 L5 27.5 Z" 
+        stroke="currentColor" 
+        strokeWidth="0.5" 
+        opacity="0.2" 
       />
       
-      {/* Optional Scanline Overlay for "Animated" state */}
-      {animated && (
-        <div className="absolute inset-0 bg-gradient-to-t from-transparent via-white/5 to-transparent h-1/2 w-full top-0 animate-[scanline_3s_linear_infinite] pointer-events-none z-20 opacity-20" />
-      )}
-
-      <style jsx global>{`
-        @keyframes scanline {
-          0% { transform: translateY(-100%); }
-          100% { transform: translateY(200%); }
-        }
-      `}</style>
-    </div>
-  );
-};
+      {/* The Core 'G' Wing Asset */}
+      <path 
+        d="M80 35 L50 15 L20 35 L20 65 L50 85 L80 65 L80 50 L55 50" 
+        stroke="#FF6B00" 
+        strokeWidth="6" 
+        strokeLinecap="square" 
+        strokeLinejoin="miter"
+        className={animated ? "logo-draw-animation" : ""} 
+      />
+      
+      {/* Kinetic Center Node */}
+      <rect x="48" y="48" width="4" height="4" fill="#00E5FF" className="animate-pulse" />
+    </svg>
+    
+    <style jsx>{`
+      .logo-draw-animation {
+        stroke-dasharray: 400;
+        stroke-dashoffset: 400;
+        animation: draw 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+      }
+      @keyframes draw {
+        0% { stroke-dashoffset: 400; filter: brightness(1) drop-shadow(0 0 0px #FF6B00); }
+        50% { stroke-dashoffset: 0; filter: brightness(1.2) drop-shadow(0 0 8px #FF6B00); }
+        100% { stroke-dashoffset: 0; filter: brightness(1.5) drop-shadow(0 0 15px #FF6B00); }
+      }
+    `}</style>
+  </div>
+);
