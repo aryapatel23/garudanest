@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
-import Script from "next/script";
 import "./globals.css";
 import { BRAND } from "@/lib/constants";
 
@@ -90,6 +89,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { MagneticCursor } from "@/components/ui/MagneticCursor";
 import { GlobalAudio } from "@/components/ui/GlobalAudio";
+import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 
 export default function RootLayout({
   children,
@@ -145,22 +145,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.variable} ${spaceGrotesk.variable} font-sans antialiased text-white bg-[#050505] overflow-x-clip`}>
-        {gaId ? (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
-              strategy="afterInteractive"
-            />
-            <Script id="google-analytics" strategy="afterInteractive">
-              {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '${gaId}', { page_path: window.location.pathname });
-              `}
-            </Script>
-          </>
-        ) : null}
+        <GoogleAnalytics gaId={gaId} />
         <MagneticCursor />
         <GlobalAudio />
         <Preloader />
