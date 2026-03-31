@@ -1,26 +1,83 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
+import { BRAND } from "@/lib/constants";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", weight: ["400", "500", "700", "900"] });
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space" });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://teamgarudanest.in";
+const siteName = "GarudaNest";
+const defaultTitle = "GarudaNest | Elite Developers Building Systems That Soar";
+const defaultDescription = "GarudaNest is an elite engineering collective building fast, scalable web, backend, AI, and mobile systems for high-growth teams.";
+const socialImage = "https://res.cloudinary.com/dczue3n9b/image/upload/v1773997242/1773927705698_e_1775692800_v_beta_t_wnK_isUP_7OGaqksgyBNyb3Z-2mX6HKiY49f_cp67X4_kkmle0.png";
+const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+
 export const metadata: Metadata = {
-  title: "GarudaNest | Elite Developers Building Systems That Soar",
-  description: "A tight collective of top full-stack, backend & AI engineers turning bold ideas into scalable reality. Fast. Reliable. Production-Ready.",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: defaultTitle,
+    template: "%s | GarudaNest"
+  },
+  description: defaultDescription,
+  applicationName: siteName,
+  keywords: [
+    "GarudaNest",
+    "full stack development",
+    "AI development agency",
+    "Next.js development",
+    "mobile app development India",
+    "backend engineering",
+    "startup product engineering",
+    "MVP development"
+  ],
+  authors: [{ name: siteName, url: siteUrl }],
+  creator: siteName,
+  publisher: siteName,
+  alternates: {
+    canonical: "/"
+  },
   icons: {
-    icon: "https://res.cloudinary.com/dczue3n9b/image/upload/v1773997242/1773927705698_e_1775692800_v_beta_t_wnK_isUP_7OGaqksgyBNyb3Z-2mX6HKiY49f_cp67X4_kkmle0.png",
-    apple: "https://res.cloudinary.com/dczue3n9b/image/upload/v1773997242/1773927705698_e_1775692800_v_beta_t_wnK_isUP_7OGaqksgyBNyb3Z-2mX6HKiY49f_cp67X4_kkmle0.png",
+    icon: socialImage,
+    apple: socialImage,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1
+    }
+  },
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION || ""
   },
   openGraph: {
-    title: "GarudaNest | Digital Systems That Soar",
-    description: "Elite full-stack & AI developers building scalable production-grade systems.",
-    url: "https://garudanest.com",
-    siteName: "GarudaNest",
+    title: defaultTitle,
+    description: defaultDescription,
+    url: siteUrl,
+    siteName,
     locale: "en_US",
     type: "website",
-    images: ["https://res.cloudinary.com/dczue3n9b/image/upload/v1773997242/1773927705698_e_1775692800_v_beta_t_wnK_isUP_7OGaqksgyBNyb3Z-2mX6HKiY49f_cp67X4_kkmle0.png"]
+    images: [
+      {
+        url: socialImage,
+        width: 1200,
+        height: 630,
+        alt: "GarudaNest - Elite Developers Building Systems That Soar"
+      }
+    ]
   },
+  twitter: {
+    card: "summary_large_image",
+    title: defaultTitle,
+    description: defaultDescription,
+    images: [socialImage]
+  }
 };
 
 import { Preloader } from "@/components/ui/Preloader";
@@ -35,33 +92,70 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: siteName,
+    url: siteUrl,
+    logo: socialImage,
+    contactPoint: {
+      "@type": "ContactPoint",
+      email: BRAND.email,
+      contactType: "customer support"
+    },
+    sameAs: [
+      BRAND.social.instagram,
+      BRAND.social.twitter,
+      BRAND.social.linkedin
+    ]
+  };
+
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: siteName,
+    url: siteUrl,
+    potentialAction: {
+      "@type": "SearchAction",
+      target: `${siteUrl}/work?query={search_term_string}`,
+      "query-input": "required name=search_term_string"
+    }
+  };
+
   return (
     <html lang="en" className="scroll-smooth overflow-x-clip">
       <head>
+        <link rel="canonical" href={siteUrl} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              name: "GarudaNest",
-              url: "https://garudanest.com",
-              logo: "https://res.cloudinary.com/dczue3n9b/image/upload/v1773997242/1773927705698_e_1775692800_v_beta_t_wnK_isUP_7OGaqksgyBNyb3Z-2mX6HKiY49f_cp67X4_kkmle0.png",
-              contactPoint: {
-                "@type": "ContactPoint",
-                email: "teamgarudanest@gmail.com",
-                contactType: "customer support"
-              },
-              sameAs: [
-                "https://www.instagram.com/teamgarudanest/",
-                "https://x.com/teamgarudanest",
-                "https://www.linkedin.com/in/teamgarudanest/"
-              ]
-            })
+            __html: JSON.stringify(organizationSchema)
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteSchema)
           }}
         />
       </head>
       <body className={`${inter.variable} ${spaceGrotesk.variable} font-sans antialiased text-white bg-[#050505] overflow-x-clip`}>
+        {gaId ? (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${gaId}', { page_path: window.location.pathname });
+              `}
+            </Script>
+          </>
+        ) : null}
         <MagneticCursor />
         <GlobalAudio />
         <Preloader />

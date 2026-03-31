@@ -87,15 +87,15 @@ export default function HirePage() {
         {/* Header Section */}
         <div className="relative group mb-16 md:mb-24 pt-12 md:pt-16">
           <span className="absolute -top-3 left-0 text-[#FF6B00] opacity-[0.06] font-sync font-bold text-4xl md:text-8xl uppercase tracking-tighter select-none pointer-events-none whitespace-nowrap">
-            Elite Consultation
+            Client Discovery
           </span>
 
           <h2 className="relative z-10 text-4xl md:text-7xl font-sync font-bold uppercase tracking-tighter text-white leading-none">
-            Begin Your <span className="text-[#FF6B00]">System Audit</span>
+            Let us Plan Your <span className="text-[#FF6B00]">Next Build</span>
           </h2>
 
           <p className="max-w-2xl mt-6 text-xs md:text-sm text-slate-400 uppercase tracking-[0.14em] md:tracking-widest leading-relaxed font-medium">
-            Tell us what you are building, where you are stuck, and your preferred 30-minute call window.
+            Share your goals, timeline, and preferred call slot. We will recommend the best technical path for your project.
           </p>
 
           <div className="h-[2px] w-16 bg-[#FF6B00] mt-8 opacity-40"></div>
@@ -107,22 +107,22 @@ export default function HirePage() {
             <BentoCard className="p-8">
               <div className="flex items-center gap-3 mb-6">
                 <ShieldCheck size={20} className="text-[#00E5FF]" />
-                <span className="text-[10px] font-bold uppercase tracking-[0.3em]">The Guarantee</span>
+                <span className="text-[10px] font-bold uppercase tracking-[0.3em]">Client Promise</span>
               </div>
-              <h3 className="text-xl font-sync font-bold uppercase mb-4 leading-tight">Zero <br /> Bottlenecks</h3>
+              <h3 className="text-xl font-sync font-bold uppercase mb-4 leading-tight">Clear <br /> Direction</h3>
               <p className="text-[10px] text-slate-500 uppercase leading-loose tracking-wide font-medium">
-                Every project begins with a deep-scan audit. We identify the rot in your current system before writing a single line of new code.
+                We begin with a focused discovery review so you get practical recommendations before development starts.
               </p>
             </BentoCard>
 
             <BentoCard className="p-8">
               <div className="flex items-center gap-3 mb-6">
                 <Cpu size={20} className="text-[#FF6B00]" />
-                <span className="text-[10px] font-bold uppercase tracking-[0.3em]">The Workflow</span>
+                <span className="text-[10px] font-bold uppercase tracking-[0.3em]">Delivery Model</span>
               </div>
-              <h3 className="text-xl font-sync font-bold uppercase mb-4 leading-tight">Extreme <br /> Velocity</h3>
+              <h3 className="text-xl font-sync font-bold uppercase mb-4 leading-tight">Senior Team <br /> Execution</h3>
               <p className="text-[10px] text-slate-500 uppercase leading-loose tracking-wide font-medium">
-                No middle managers. No bloat. You work directly with the 8 senior architects who execute your vision in 1-week sprints.
+                You work directly with experienced engineers, with transparent updates and fast iteration.
               </p>
             </BentoCard>
           </div>
@@ -141,8 +141,9 @@ export default function HirePage() {
                 />
 
                 <div className="border border-[#FF6B00]/30 bg-[#FF6B00]/5 p-4 sm:p-5">
-                  <p className="text-[10px] uppercase tracking-[0.14em] text-[#FFD3B5]">Discovery Workflow</p>
-                  <p className="mt-2 text-[10px] uppercase tracking-[0.12em] text-white/75">Submit brief | Technical review (same day) | 3 slot options | 30-min call | action plan</p>
+                  <p className="text-[10px] uppercase tracking-[0.14em] text-[#FFD3B5]">How It Works</p>
+                  <p className="mt-2 text-[10px] uppercase tracking-[0.12em] text-white/75">Submit request | Same-day review | Strategy call | Action plan</p>
+                  <p className="mt-3 text-[10px] uppercase tracking-[0.1em] text-white/60">Best for: MVP launch, product redesign, scale and performance fixes.</p>
                 </div>
 
                 {/* Company & Contact */}
@@ -160,14 +161,14 @@ export default function HirePage() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[9px] font-bold text-white/40 uppercase tracking-widest ml-1">Entity Name</label>
+                    <label className="text-[9px] font-bold text-white/40 uppercase tracking-widest ml-1">Company Name</label>
                     <input name="companyName" required type="text" placeholder="COMPANY_CORP" autoComplete="organization" onChange={clearStatus} className="w-full bg-transparent border-b border-white/10 p-4 text-xs uppercase outline-none focus:border-[#FF6B00] transition-colors" />
                   </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-2">
-                    <label className="text-[9px] font-bold text-white/40 uppercase tracking-widest ml-1">Secure Uplink (Email)</label>
-                    <input name="workEmail" required type="email" autoComplete="email" placeholder="CTO@DOMAIN.COM" onChange={clearStatus} className="w-full bg-transparent border-b border-white/10 p-4 text-xs uppercase outline-none focus:border-[#FF6B00] transition-colors" />
+                    <label className="text-[9px] font-bold text-white/40 uppercase tracking-widest ml-1">Work Email</label>
+                    <input name="workEmail" required type="email" autoComplete="email" placeholder="you@company.com" onChange={clearStatus} className="w-full bg-transparent border-b border-white/10 p-4 text-xs uppercase outline-none focus:border-[#FF6B00] transition-colors" />
                   </div>
                   <div className="space-y-2">
                     <label className="text-[9px] font-bold text-white/40 uppercase tracking-widest ml-1">Phone / WhatsApp (Optional)</label>
@@ -177,7 +178,7 @@ export default function HirePage() {
 
                 {/* Project Goal */}
                 <div className="space-y-2">
-                  <label className="text-[9px] font-bold text-white/40 uppercase tracking-widest ml-1">What Do You Need Help With?</label>
+                  <label className="text-[9px] font-bold text-white/40 uppercase tracking-widest ml-1">Project Goal</label>
                   <input
                     name="objective"
                     required
@@ -196,21 +197,21 @@ export default function HirePage() {
                       name="budgetApprox"
                       required
                       type="text"
-                      placeholder="E.G. APPROX $8K - $15K"
+                      placeholder="E.G. $8K - $15K"
                       onChange={clearStatus}
                       className="w-full bg-transparent border-b border-white/10 p-4 text-xs uppercase outline-none focus:border-[#00E5FF] transition-colors"
                     />
                   </div>
                   <div className="space-y-2">
                     <label className="text-[9px] font-bold text-white/40 uppercase tracking-widest ml-1">Target Timeline</label>
-                    <input name="timeline" required type="text" placeholder="E.G. 4-8 WEEKS" onChange={clearStatus} className="w-full bg-transparent border-b border-white/10 p-4 text-xs uppercase outline-none focus:border-[#00E5FF] transition-colors" />
+                    <input name="timeline" required type="text" placeholder="E.G. 2-4 WEEKS" onChange={clearStatus} className="w-full bg-transparent border-b border-white/10 p-4 text-xs uppercase outline-none focus:border-[#00E5FF] transition-colors" />
                   </div>
                 </div>
 
                 {/* 30-min Meeting Preference */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-2">
-                    <label className="text-[9px] font-bold text-white/40 uppercase tracking-widest ml-1">Preferred 30-Min Call Mode</label>
+                    <label className="text-[9px] font-bold text-white/40 uppercase tracking-widest ml-1">Preferred Call Mode</label>
                     <select
                       name="meetingMode"
                       required
@@ -225,7 +226,7 @@ export default function HirePage() {
                     </select>
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[9px] font-bold text-white/40 uppercase tracking-widest ml-1">Best Time Window (30 Mins)</label>
+                    <label className="text-[9px] font-bold text-white/40 uppercase tracking-widest ml-1">Preferred Time Window</label>
                     <input
                       name="meetingWindow"
                       required
@@ -238,7 +239,7 @@ export default function HirePage() {
                 </div>
 
                 <div className="border border-white/10 bg-white/[0.02] p-4 text-[10px] uppercase tracking-[0.14em] text-slate-300">
-                  We will schedule a focused 30-minute discovery session and share the calendar invite on your work email.
+                  We will schedule a 30-minute discovery call and share your invite on email.
                 </div>
 
                 <p className="text-[10px] text-white/40 uppercase tracking-[0.14em]">
@@ -247,14 +248,14 @@ export default function HirePage() {
 
                 {/* Project Scope */}
                 <div className="space-y-2">
-                  <label className="text-[9px] font-bold text-white/40 uppercase tracking-widest ml-1">The Mission (Scope)</label>
-                  <textarea name="projectScope" required placeholder="Describe the system bottlenecks we must eliminate..." rows={4} minLength={20} onChange={clearStatus} className="w-full bg-transparent border border-white/10 p-4 text-xs uppercase outline-none focus:border-[#FF6B00] transition-colors resize-none" />
+                  <label className="text-[9px] font-bold text-white/40 uppercase tracking-widest ml-1">Project Details</label>
+                  <textarea name="projectScope" required placeholder="Tell us about your product, current challenge, and expected outcome..." rows={4} minLength={20} onChange={clearStatus} className="w-full bg-transparent border border-white/10 p-4 text-xs uppercase outline-none focus:border-[#FF6B00] transition-colors resize-none" />
                 </div>
 
                 <label className="flex items-start gap-3 border border-white/10 p-3 sm:p-4">
                   <input name="consent" type="checkbox" required className="mt-1 accent-[#FF6B00]" />
                   <span className="text-[10px] uppercase tracking-[0.12em] text-white/65">
-                    I confirm this is a business inquiry and agree to be contacted on email for discovery scheduling.
+                    I confirm this is a business inquiry and agree to be contacted for project discovery.
                   </span>
                 </label>
 
@@ -264,7 +265,7 @@ export default function HirePage() {
                     disabled={status.type === 'loading'}
                     className="w-full md:w-auto px-12 py-5 bg-[#FF6B00] text-black font-black text-xs uppercase hover:bg-[#00E5FF] transition-all flex items-center justify-center gap-3 group shadow-[0_0_20px_rgba(255,107,0,0.3)] disabled:opacity-60"
                   >
-                    {status.type === 'loading' ? 'Establishing Uplink...' : 'Submit Briefing'}
+                    {status.type === 'loading' ? 'Sending Request...' : 'Submit Request'}
                     <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                   </button>
 
@@ -283,10 +284,10 @@ export default function HirePage() {
                         <div className="h-12 w-12 sm:h-14 sm:w-14 rounded-xl border border-[#39FF14]/35 bg-[#39FF14]/15 flex items-center justify-center">
                           <CalendarDays size={22} className="text-[#7BFF67]" />
                         </div>
-                        <p className="text-[10px] uppercase tracking-[0.18em] text-[#9AFB8C]">Schedule Strategy Sync</p>
+                        <p className="text-[10px] uppercase tracking-[0.18em] text-[#9AFB8C]">Book A Strategy Call</p>
                       </div>
                       <span className="inline-flex items-center rounded-full border border-[#39FF14]/35 bg-[#39FF14]/10 px-3 py-1 text-[10px] uppercase tracking-[0.12em] text-[#9AFB8C]">
-                        Ready to Sync
+                        Slots Available
                       </span>
                     </div>
 
@@ -308,7 +309,7 @@ export default function HirePage() {
                         className={`inline-flex w-full lg:w-auto items-center justify-center gap-2 rounded-xl px-6 py-4 text-sm font-bold uppercase tracking-[0.08em] transition-all ${schedulerUrl ? 'bg-[#2CC61A] text-white hover:bg-[#38d925] shadow-[0_8px_30px_rgba(57,255,20,0.25)]' : 'bg-[#1f2937] text-slate-400 pointer-events-none'}`}
                       >
                         <CalendarDays size={18} />
-                        Book 15min Call
+                        Book 15-Min Call
                         <ArrowRight size={16} />
                       </a>
 
@@ -317,7 +318,7 @@ export default function HirePage() {
                         className="inline-flex w-full lg:w-auto items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/5 px-6 py-4 text-sm font-semibold uppercase tracking-[0.08em] text-slate-100 hover:bg-white/10 transition-colors"
                       >
                         <Mail size={18} />
-                        Inquiry via Email
+                        Contact by Email
                       </a>
                     </div>
 

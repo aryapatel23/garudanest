@@ -33,10 +33,36 @@ NEXT_PUBLIC_GEMINI_API_KEY=your_gemini_key
 BACKEND_WEBHOOK_URL=https://your-backend-webhook.example.com
 NEXT_PUBLIC_SCHEDULER_PROVIDER=calendly
 NEXT_PUBLIC_SCHEDULER_URL=https://calendly.com/your-team/discovery-call-30min
+NEXT_PUBLIC_SITE_URL=https://teamgarudanest.in
+GOOGLE_SITE_VERIFICATION=your_google_site_verification_token
+NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
 ```
 
 Deliverability note:
 - For best inbox placement, use a verified sender domain in Resend for RESEND_FROM_EMAIL (avoid temporary sandbox sender addresses in production).
+
+## SEO and Indexing
+
+- Technical SEO included:
+	- Canonical and OpenGraph metadata
+	- Twitter card metadata
+	- robots file at `/robots.txt`
+	- dynamic sitemap at `/sitemap.xml`
+	- Organization + WebSite schema markup
+- Domain configured for SEO: `https://teamgarudanest.in`
+
+### Google Search Console
+
+1. Add your property: `https://teamgarudanest.in`
+2. Put the verification token into `GOOGLE_SITE_VERIFICATION`
+3. Deploy
+4. Submit sitemap: `https://teamgarudanest.in/sitemap.xml`
+
+### Google Analytics
+
+1. Create GA4 property and data stream
+2. Put measurement ID in `NEXT_PUBLIC_GA_MEASUREMENT_ID`
+3. Deploy and verify events in GA Realtime
 
 ## Hire Discovery Workflow
 
