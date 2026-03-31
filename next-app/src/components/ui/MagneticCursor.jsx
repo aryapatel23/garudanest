@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
@@ -7,8 +7,45 @@ gsap.registerPlugin(useGSAP);
 
 export const MagneticCursor = () => {
   const dot = useRef(null);
+  const [isEnabled, setIsEnabled] = useState(false);
+
+  useEffect(() => {
+    const desktopPointerQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const touchLikeQuery = window.matchMedia('(hover: none), (pointer: coarse), (any-pointer: coarse), (max-width: 1279px)');
+
+    const evaluate = () => {
+      const ua = navigator.userAgent || '';
+      const isMobileOrTabletUA = /Android|iPhone|iPad|iPod|Tablet|Mobile|Silk|Kindle/i.test(ua);
+      const isiPadDesktopMode = navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
+      const hasTouch = navigator.maxTouchPoints > 0;
+      const isDesktopEligible =
+        desktopPointerQuery.matches &&
+        !touchLikeQuery.matches &&
+        window.innerWidth >= 1280 &&
+        !isMobileOrTabletUA &&
+        !isiPadDesktopMode &&
+        !hasTouch;
+
+      setIsEnabled(isDesktopEligible);
+      document.documentElement.classList.toggle('cursor-desktop-enabled', isDesktopEligible);
+    };
+
+    evaluate();
+    window.addEventListener('resize', evaluate);
+    desktopPointerQuery.addEventListener('change', evaluate);
+    touchLikeQuery.addEventListener('change', evaluate);
+
+    return () => {
+      window.removeEventListener('resize', evaluate);
+      desktopPointerQuery.removeEventListener('change', evaluate);
+      touchLikeQuery.removeEventListener('change', evaluate);
+      document.documentElement.classList.remove('cursor-desktop-enabled');
+    };
+  }, []);
 
   useGSAP(() => {
+    if (!isEnabled || !dot.current) return;
+
     gsap.set(dot.current, { autoAlpha: 0, scale: 1 });
 
     const onMove = (e) => {
@@ -59,7 +96,9 @@ export const MagneticCursor = () => {
       window.removeEventListener('mouseup', onMouseUp);
       observer.disconnect();
     };
-  }, {});
+  }, { dependencies: [isEnabled] });
+
+  if (!isEnabled) return null;
 
   return (
     <div

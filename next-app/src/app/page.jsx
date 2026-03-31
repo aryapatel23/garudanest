@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
   ArrowRight,
-  ChevronRight, Zap, Hash, Command, Terminal, Sparkles, Send, Cpu, Globe, Menu, X, ShieldCheck, Users, Rocket, Briefcase, User, Camera
+  ChevronRight, Zap, Command, Terminal, Sparkles, Cpu, Globe, Menu, X, ShieldCheck, Users, Rocket, Briefcase, User, Camera
 } from 'lucide-react';
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -13,6 +13,7 @@ import { BRAND, teamMembers, projects, testimonials } from '@/lib/constants';
 import { GarudaLogo } from '@/components/ui/GarudaLogo';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import { ProjectModal } from '@/components/ui/ProjectModal';
+import { sendEmailAction } from '@/lib/actions';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -123,8 +124,8 @@ export default function App() {
 
   }, { scope: container, dependencies: [shuffledMembers] });
 
-  const [manifestoQuery, setManifestoQuery] = useState("");
-  const [manifestoResponse, setManifestoResponse] = useState("");
+  const [uplinkStatus, setUplinkStatus] = useState("IDLE");
+  const [uplinkMessage, setUplinkMessage] = useState("");
   const [testimonialIndex, setTestimonialIndex] = useState(0);
   const [hireStatus, setHireStatus] = useState({ type: "idle", message: "" });
   const [joinStatus, setJoinStatus] = useState({ type: "idle", message: "" });
@@ -138,11 +139,10 @@ export default function App() {
 
   const homePagePreview = shuffledMembers.slice(0, 8);
 
-  const handleManifestoAsk = async () => { /* Hook handled manually in backend usually */ };
   const handleHireSubmit = async (event) => { event.preventDefault(); setHireStatus({ type: 'success', message: `Protocol Initiated.` }); };
 
   return (
-    <div ref={container} id="home" className="bg-[#050505] text-[#f0f0f0] font-mono selection:bg-[#FF6B00] selection:text-black cursor-none overflow-x-hidden">
+    <div ref={container} id="home" className="bg-[#050505] text-[#f0f0f0] font-mono selection:bg-[#FF6B00] selection:text-black overflow-x-hidden">
 
       <style dangerouslySetInnerHTML={{__html: `
         @keyframes cyber-marquee {
@@ -501,23 +501,57 @@ export default function App() {
               </ScrollReveal>
 
               <ScrollReveal delay={300} type="fade-up">
-                  <div className="mt-20 border-l-4 border-[#00E5FF] p-10 bg-white/5 backdrop-blur-md">
+                  <div className="mt-20 border-l-4 border-[#00E5FF] p-8 md:p-10 bg-white/5 backdrop-blur-md">
                     <div className="flex items-center gap-3 mb-6">
-                      <Hash size={16} className="text-[#00E5FF]" />
-                      <span className="text-xs text-[#00E5FF] font-bold uppercase tracking-widest">Consult Hive_Mind</span>
+                      <ShieldCheck size={16} className="text-[#00E5FF]" />
+                      <span className="text-xs text-[#00E5FF] font-bold uppercase tracking-widest">Establish_Uplink</span>
                     </div>
-                    <div className="flex flex-col gap-4">
-                      <input
-                        type="text"
-                        value={manifestoQuery}
-                        onChange={(e) => setManifestoQuery(e.target.value)}
-                        placeholder="Question our methods..."
-                        className="bg-transparent border-b border-white/10 py-3 text-sm outline-none focus:border-[#FF6B00] font-mono"
-                      />
-                      <button onClick={handleManifestoAsk} className="self-end p-4 bg-white/5 hover:bg-[#FF6B00] hover:text-black transition-all rounded-full">
-                        <Send size={20} />
+                    <form
+                      onSubmit={async (e) => {
+                        e.preventDefault();
+                        setUplinkStatus('SENDING');
+                        const formData = new FormData(e.currentTarget);
+                        formData.append('type', 'Home Uplink Inquiry');
+                        formData.append('sourcePage', '/');
+                        const result = await sendEmailAction(formData);
+                        if (result.success) {
+                          setUplinkStatus('SUCCESS');
+                          setUplinkMessage('TRANSMISSION_SUCCESS: NODE_NOTIFIED');
+                          e.currentTarget.reset();
+                        } else {
+                          setUplinkStatus('ERROR');
+                          setUplinkMessage(`ENCRYPTION_FAULT: ${result.error}`);
+                        }
+                      }}
+                      className="space-y-6"
+                    >
+                      <div className="space-y-2">
+                        <label className="text-[9px] font-bold text-white/40 uppercase tracking-widest ml-1">Secure_Ident</label>
+                        <input name="companyName" required placeholder="ENTITY_NAME" className="w-full bg-transparent border-b border-white/10 p-4 text-xs uppercase outline-none focus:border-[#FF6B00] transition-colors" />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-[9px] font-bold text-white/40 uppercase tracking-widest ml-1">Frequency (Email)</label>
+                        <input name="workEmail" required type="email" placeholder="EMAIL@PROTOCOL.COM" className="w-full bg-transparent border-b border-white/10 p-4 text-xs uppercase outline-none focus:border-[#FF6B00] transition-colors" />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-[9px] font-bold text-white/40 uppercase tracking-widest ml-1">Transmission</label>
+                        <textarea name="projectScope" rows={3} placeholder="ENCRYPTED_MESSAGE..." className="w-full bg-transparent border-b border-white/10 p-4 text-xs uppercase outline-none focus:border-[#FF6B00] transition-colors resize-none" />
+                      </div>
+
+                      <button
+                        type="submit"
+                        disabled={uplinkStatus === 'SENDING'}
+                        className="w-full bg-[#FF6B00] text-black py-4 font-black text-xs uppercase hover:bg-white transition-all disabled:opacity-60"
+                      >
+                        {uplinkStatus === 'SENDING' ? 'establishing uplink...' : 'Execute Transmission'}
                       </button>
-                    </div>
+
+                      {uplinkStatus !== 'IDLE' && (
+                        <div className={`text-[10px] font-bold uppercase tracking-widest text-center p-3 border ${uplinkStatus === 'SUCCESS' ? 'border-green-500/20 text-green-400 bg-green-500/10' : 'border-red-500/20 text-red-500 bg-red-500/10'}`}>
+                          {uplinkMessage}
+                        </div>
+                      )}
+                    </form>
                   </div>
               </ScrollReveal>
             </div>

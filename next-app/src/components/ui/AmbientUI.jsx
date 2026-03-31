@@ -5,22 +5,53 @@ import React, { useState, useEffect } from 'react';
 export const AmbientUI = () => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [showCursor, setShowCursor] = useState(false);
 
   useEffect(() => {
+    const desktopPointerQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const touchLikeQuery = window.matchMedia('(hover: none), (pointer: coarse), (any-pointer: coarse), (max-width: 1279px)');
+
+    const evaluateCursorMode = () => {
+      const ua = navigator.userAgent || '';
+      const isMobileOrTabletUA = /Android|iPhone|iPad|iPod|Tablet|Mobile|Silk|Kindle/i.test(ua);
+      const isiPadDesktopMode = navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
+      const hasTouch = navigator.maxTouchPoints > 0;
+      const enabled =
+        desktopPointerQuery.matches &&
+        !touchLikeQuery.matches &&
+        window.innerWidth >= 1280 &&
+        !isMobileOrTabletUA &&
+        !isiPadDesktopMode &&
+        !hasTouch;
+
+      setShowCursor(enabled);
+    };
+
     const handleScroll = () => {
       const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
       setScrollProgress(window.scrollY / (totalScroll || 1));
     };
-    const handleMove = (e) => setMousePos({ x: e.clientX, y: e.clientY });
+    const handleMove = (e) => {
+      if (!showCursor) return;
+      setMousePos({ x: e.clientX, y: e.clientY });
+    };
+
+    evaluateCursorMode();
 
     window.addEventListener('scroll', handleScroll);
     window.addEventListener('mousemove', handleMove);
+    window.addEventListener('resize', evaluateCursorMode);
+    desktopPointerQuery.addEventListener('change', evaluateCursorMode);
+    touchLikeQuery.addEventListener('change', evaluateCursorMode);
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('mousemove', handleMove);
+      window.removeEventListener('resize', evaluateCursorMode);
+      desktopPointerQuery.removeEventListener('change', evaluateCursorMode);
+      touchLikeQuery.removeEventListener('change', evaluateCursorMode);
     };
-  }, []);
+  }, [showCursor]);
 
   return (
     <>
@@ -58,10 +89,12 @@ export const AmbientUI = () => {
         <div className="scanline" />
       </div>
 
-      <div
-        className="custom-cursor"
-        style={{ left: mousePos.x, top: mousePos.y, transform: 'translate(-50%, -50%)' }}
-      />
+      {showCursor && (
+        <div
+          className="custom-cursor"
+          style={{ left: mousePos.x, top: mousePos.y, transform: 'translate(-50%, -50%)' }}
+        />
+      )}
 
       <div
         className="fixed bottom-0 left-0 h-1 bg-[#FF6B00] z-[100] transition-all duration-100"

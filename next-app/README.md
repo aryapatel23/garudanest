@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GarudaNest Next App
 
-## Getting Started
+Production Next.js application for the GarudaNest website.
 
-First, run the development server:
+For full repository documentation (root scripts, hosting config, route map), see ../README.md.
+
+## Quick Start
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- npm run dev
+- npm run build
+- npm run start
+- npm run lint
 
-## Learn More
+## Environment
 
-To learn more about Next.js, take a look at the following resources:
+Create .env.local:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```env
+RESEND_API_KEY=your_resend_key
+RESEND_TO_EMAIL=teamgarudanest@gmail.com
+RESEND_FROM_NAME=GarudaNest
+RESEND_FROM_EMAIL=hello@yourdomain.com
+NEXT_PUBLIC_GEMINI_API_KEY=your_gemini_key
+BACKEND_WEBHOOK_URL=https://your-backend-webhook.example.com
+NEXT_PUBLIC_SCHEDULER_PROVIDER=calendly
+NEXT_PUBLIC_SCHEDULER_URL=https://calendly.com/your-team/discovery-call-30min
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Deliverability note:
+- For best inbox placement, use a verified sender domain in Resend for RESEND_FROM_EMAIL (avoid temporary sandbox sender addresses in production).
 
-## Deploy on Vercel
+## Hire Discovery Workflow
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Visitor submits the Hire brief with objective, approximate budget, timeline, meeting mode, and preferred 30-minute window.
+2. Form performs front-end checks: required fields, minimum scope detail, anti-spam honeypot, and business-contact consent.
+3. Server action validates payload again and sends a structured inquiry email through Resend.
+4. Client gets instant Calendly booking option (prefilled) and can reserve a slot immediately.
+5. Team receives inquiry details with reply-to set to lead email for quick follow-up.
+6. Post-call, team sends scope summary, estimate, and next steps.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Workflow files:
+- src/app/hire/page.jsx
+- src/lib/actions.js
+
+## App Diagram
+
+```mermaid
+flowchart LR
+	A[App Router Pages] --> B[Reusable Components]
+	A --> C[Server Actions]
+	A --> D[API Routes]
+	C --> E[Resend]
+	A --> F[Gemini Helper]
+	F --> G[Gemini API]
+	A --> H[constants.js Content Layer]
+```
+
+## Key Directories
+
+```text
+src/
+|- app/           # routes + layouts + api
+|- components/    # layout, sections, ui
+|- lib/           # actions, constants, gemini
+```
+
+## Production Check
+
+```bash
+npm run build
+```

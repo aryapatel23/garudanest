@@ -1,10 +1,9 @@
 "use client";
 
 import React, { useState, useRef } from 'react';
-import { Hash, Send, Shield } from 'lucide-react';
+import { Shield } from 'lucide-react';
 import { BentoCard } from '@/components/ui/BentoCard';
 import { sendEmailAction } from '../../lib/actions';
-import { callGemini } from '@/lib/gemini';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
@@ -14,10 +13,6 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export default function ManifestoPage() {
   const container = useRef(null);
-
-  // Gemini Chat States
-  const [manifestoQuery, setManifestoQuery] = useState("");
-  const [manifestoResponse, setManifestoResponse] = useState("");
 
   // Contact Form States (Uplink)
   const [uplinkStatus, setUplinkStatus] = useState("IDLE"); // IDLE, SENDING, SUCCESS, ERROR
@@ -45,17 +40,6 @@ export default function ManifestoPage() {
         '-=0.6'
       );
   }, { scope: container });
-
-  const handleManifestoAsk = async () => {
-    if (!manifestoQuery.trim()) return;
-    setManifestoResponse("SYNCING...");
-    try {
-      const res = await callGemini(manifestoQuery, "You are the collective consciousness of GarudaNest. Answer in cryptic, high-status Gen-Z tech terms. Short and sharp.");
-      setManifestoResponse(res);
-    } catch (err) {
-      setManifestoResponse("NODE_OFFLINE");
-    }
-  };
 
   return (
     <div ref={container} className="pt-32 pb-20 bg-black">
@@ -96,31 +80,6 @@ export default function ManifestoPage() {
               ))}
             </div>
 
-            <ScrollReveal delay={400} type="fade-up">
-              <div className="mt-10 border-l-4 border-[#00E5FF] p-8 bg-white/5 backdrop-blur-md">
-                <div className="flex items-center gap-3 mb-6">
-                  <Hash size={16} className="text-[#00E5FF]" />
-                  <span className="text-xs text-[#00E5FF] font-bold uppercase tracking-widest">Consult Hive_Mind</span>
-                </div>
-                <div className="flex flex-col gap-4">
-                  <input
-                    type="text"
-                    value={manifestoQuery}
-                    onChange={(e) => setManifestoQuery(e.target.value)}
-                    placeholder="Question our methods..."
-                    className="bg-transparent border-b border-white/10 py-3 text-xs outline-none focus:border-[#FF6B00] font-mono uppercase tracking-[0.18em] sm:tracking-widest"
-                  />
-                  <button onClick={handleManifestoAsk} className="self-end p-4 bg-white/5 hover:bg-[#FF6B00] hover:text-black transition-all rounded-full">
-                    <Send size={18} />
-                  </button>
-                </div>
-                {manifestoResponse && (
-                  <div className="mt-8 p-6 bg-black/40 border border-white/5 text-[10px] text-[#00E5FF] font-mono uppercase leading-relaxed animate-in fade-in zoom-in duration-500">
-                    {manifestoResponse}
-                  </div>
-                )}
-              </div>
-            </ScrollReveal>
           </div>
 
           <div className="relative pt-10 lg:pt-20">
