@@ -13,6 +13,10 @@ const defaultTitle = "GarudaNest | Elite Developers Building Systems That Soar";
 const defaultDescription = "GarudaNest is an elite engineering collective building fast, scalable web, backend, AI, and mobile systems for high-growth teams.";
 const socialImage = "https://res.cloudinary.com/dczue3n9b/image/upload/v1773997242/1773927705698_e_1775692800_v_beta_t_wnK_isUP_7OGaqksgyBNyb3Z-2mX6HKiY49f_cp67X4_kkmle0.png";
 const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+const googleSiteVerification =
+  process.env.GOOGLE_SITE_VERIFICATION ||
+  process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ||
+  "YQV-b0FPeWTnr9LfzKVH7laCFbSlNNCORzFWJQH4yx8";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -54,7 +58,7 @@ export const metadata: Metadata = {
     }
   },
   verification: {
-    google: process.env.GOOGLE_SITE_VERIFICATION || ""
+    google: googleSiteVerification
   },
   openGraph: {
     title: defaultTitle,
@@ -125,6 +129,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth overflow-x-clip">
       <head>
+        <meta name="google-site-verification" content={googleSiteVerification} />
         <link rel="canonical" href={siteUrl} />
         <script
           type="application/ld+json"
