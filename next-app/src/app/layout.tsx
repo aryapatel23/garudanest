@@ -17,6 +17,8 @@ const googleSiteVerification =
   process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ||
   "YQV-b0FPeWTnr9LfzKVH7laCFbSlNNCORzFWJQH4yx8";
 
+const iconImage = socialImage;
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
@@ -134,6 +136,9 @@ export default function RootLayout({
       <head>
         <meta name="google-site-verification" content={googleSiteVerification} />
         <link rel="canonical" href={siteUrl} />
+        <link rel="icon" href={iconImage} type="image/png" sizes="512x512" />
+        <link rel="shortcut icon" href={iconImage} type="image/png" sizes="512x512" />
+        <link rel="apple-touch-icon" href={iconImage} type="image/png" sizes="512x512" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
