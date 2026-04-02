@@ -9,7 +9,7 @@ const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://teamgarudanest.in";
 const siteName = "GarudaNest";
 const defaultTitle = "GarudaNest | Elite Developers Building Systems That Soar";
-const defaultDescription = "GarudaNest is an elite engineering collective building fast, scalable web, backend, AI, and mobile systems for high-growth teams.";
+const defaultDescription = "GarudaNest is an elite engineering collective helping startups and growth teams design, build, and scale high-performance web platforms, backend systems, AI-powered workflows, and mobile products with senior engineering execution.";
 const socialImage = "https://res.cloudinary.com/dczue3n9b/image/upload/v1773997242/1773927705698_e_1775692800_v_beta_t_wnK_isUP_7OGaqksgyBNyb3Z-2mX6HKiY49f_cp67X4_kkmle0.png";
 const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 const googleSiteVerification =
@@ -41,9 +41,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/"
   },
+  manifest: "/manifest.webmanifest",
   icons: {
-    icon: socialImage,
-    apple: socialImage,
+    icon: [{ url: socialImage, type: "image/png" }],
+    apple: [{ url: socialImage, type: "image/png" }],
+    shortcut: [socialImage]
   },
   robots: {
     index: true,
@@ -80,7 +82,8 @@ export const metadata: Metadata = {
     title: defaultTitle,
     description: defaultDescription,
     images: [socialImage]
-  }
+  },
+  category: "technology"
 };
 
 import { Preloader } from "@/components/ui/Preloader";

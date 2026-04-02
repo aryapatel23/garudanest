@@ -1,0 +1,16 @@
+{
+  "name": "GarudaNest",
+  "short_name": "GarudaNest",
+  "description": "Elite developers building high-performance web, backend, AI, and mobile systems.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050505",
+  "theme_color": "#050505",
+  "icons": [
+    {
+      "src": "https://res.cloudinary.com/dczue3n9b/image/upload/v1773997242/1773927705698_e_1775692800_v_beta_t_wnK_isUP_7OGaqksgyBNyb3Z-2mX6HKiY49f_cp67X4_kkmle0.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
